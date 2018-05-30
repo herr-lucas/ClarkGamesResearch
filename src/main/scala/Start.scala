@@ -11,18 +11,12 @@ case class Point(pid: Int, pname: String, x: Double, y: Double) extends Geo(pid,
     g match {
       case p: Point => {
         val closest_intersect: Seq[Double] = {
-          println(e.items)
-          e.items
-            .filterNot(_.id == id)
-            .filterNot(_.id == p.id)
-            .map(_.intersectDistance(PointAndDirection(p, pathToPoint(p))))
+          e.filterIntersect(Seq(p, this)).map(_.intersectDistance(PointAndDirection(p, pathToPoint(p))))
         }.flatten
         if (closest_intersect.isEmpty) true
         else if (closest_intersect.min < dist(p)) {
           if (verbose)
-            println("Blocked by: " + e.items
-              .filterNot(_.id == id)
-              .filterNot(_.id == p.id)
+            println("Blocked by: " + e.filterIntersect(Seq(p, this))
               .filterNot(_.intersectDistance(PointAndDirection(p, pathToPoint(p))) == None)
             )
           false
@@ -50,27 +44,65 @@ case class Point(pid: Int, pname: String, x: Double, y: Double) extends Geo(pid,
     if (insersects) Some(dist(pointAndDirection.p))
     else None
   }
+
+  override def toString: String = s"Id $id Name $name ($x, $y)"
 }
 
-case class PointAndDirection(p: Point, d: Direction)
-case class Direction(x: Double, y: Double)
-
-case class Line(lid: Int, lname: String, p1: Point, p2: Point) extends Geo(lid, lname) {
-  def isVisible(g: Geo, e: Environment, numSamples: Int = 100): Boolean = {
-    g match {
-      case p: Point => {
-        pointSamples(numSamples).map(_.isVisible(g, e)).exists(_ == true)
-      }
-    }
-
-    def intersect(pointAndDirection: PointAndDirection): Boolean = {
-
-    }
-
-    def intersectDistance(pointAndDirection: PointAndDirection): Option[Double] = {
-
+object LineNormalForm {
+  def lineIntersection(l1: LineNormalForm, l2: LineNormalForm): Option[Point] = {
+    val A1 = l1.A
+    val B1 = l1.B
+    val C1 = l1.C
+    val A2 = l2.A
+    val B2 = l2.B
+    val C2 = l2.C
+    // Code below taken from online
+    val delta = A1 * B2 - A2 * B1
+    if (delta == 0) None
+    else {
+      val x = (B2 * C1 - B1 * C2) / delta
+      val y = (A1 * C2 - A2 * C1) / delta
+      Some(Point(0, "", x, y))
     }
   }
+}
+case class LineNormalForm(A: Double, B: Double, C: Double) // Ax + By = C
+
+case class PointAndDirection(p: Point, d: Direction) {
+  def toLineNormalForm: LineNormalForm = {
+    val A = -d.y
+    val B = d.x
+    val C = -d.y * p.x + p.y * d.x
+    // sx*y = sy *(x - xi) + yi *sx
+    LineNormalForm(A, B, C)
+  }
+}
+
+
+case class Direction(x: Double, y: Double)
+
+// Change this name to LineSegment?
+case class Line(lid: Int, lname: String, p1: Point, p2: Point, val numSamples: Int) extends Geo(lid, lname) {
+  lazy val samples = pointSamples(numSamples)
+  def isVisible(g: Geo, e: Environment, verbose: Boolean = false): Boolean = {
+    g match {
+      case p: Point => {
+        samples.map(_.isVisible(g, e)).exists(_ == true)
+      }
+    }
+  }
+  def intersect(pointAndDirection: PointAndDirection): Boolean = {
+    false
+  }
+
+  def intersectDistance(pointAndDirection: PointAndDirection): Option[Double] = {
+    Some(-1)
+  }
+
+  def length(): Double = {
+    p1.dist(p2)
+  }
+
   def pointSamples(numSamples: Int): Seq[Point] = {
     Seq(numSamples).map(_ => randomPoint())
   }
@@ -81,17 +113,23 @@ case class Line(lid: Int, lname: String, p1: Point, p2: Point) extends Geo(lid, 
     Point(0, "", p1.x + rand * difference.x, p1.y + rand * difference.y)
   }
 }
+
 /*
 case class Shape(lines: Seq[Line]) extends Geo {
   def isVisible(g: Geo, e: Environment): Boolean = false
 }*/
 
-case class Environment(items: Seq[Geo])
+case class Environment(items: Seq[Geo]) {
+  def filterIntersect(dontInclude: Seq[Geo]): Seq[Geo] = {
+    items.filterNot(i => dontInclude.map(_.id).contains(i.id))
+  }
+}
 
 object Start {
   def main(args: Array[String]): Unit = {
     simple3PointIntersectionTest()
     simple3PointNoIntersectionTest()
+    simpleTwoLineIntersection()
   }
 
   def simple3PointIntersectionTest(): Unit = {
@@ -112,6 +150,15 @@ object Start {
     println("Simple 3 point no intersection test: " + {
       if (p1.isVisible(p3, e, verbose = true) == true) "passes" else "fails"}
     )
+  }
+
+  def simpleTwoLineIntersection(): Unit = {
+    val l1 = LineNormalForm(-1, 1, 5) // y = x + 5
+    val l2 = LineNormalForm(-2, 1, 2) // y = 2x + 2
+    val pIntersect = LineNormalForm.lineIntersection(l1, l2)
+    println("Simple two line intersection test: "  + {
+      if (pIntersect.get.x == 3.0 && pIntersect.get.y == 8.0) "passes" else "fails"
+    })
   }
 }
 
