@@ -5,13 +5,16 @@
 [debug] resolving dependencies for configuration 'compile'
 [debug] == resolving dependencies for default#clarkgamesresearch$sources;0.1 [compile]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->default]
-[debug] sbt-chain: Checking cache for: dependency: org.scala-lang#scala-library;2.12.6 {compile=[default, compile, runtime, default(compile), master], runtime=[default, compile, runtime, default(compile), master], test=[default, compile, runtime, default(compile), master], compile-internal=[default, compile, runtime, default(compile), master], runtime-internal=[default, compile, runtime, default(compile), master], test-internal=[default, compile, runtime, default(compile), master], scala-tool=[default, master(*), compile, runtime(*), runtime, optional, optional(default), compile(*), master]}
+[debug] sbt-chain: Checking cache for: dependency: org.scala-lang#scala-library;2.12.6 {compile=[default, master(*), compile, runtime(*), runtime, default(compile), compile(*), master], runtime=[default, master(*), compile, runtime(*), runtime, default(compile), compile(*), master], test=[default, master(*), compile, runtime(*), runtime, default(compile), compile(*), master], compile-internal=[default, master(*), compile, runtime(*), runtime, default(compile), compile(*), master], runtime-internal=[default, master(*), compile, runtime(*), runtime, default(compile), compile(*), master], test-internal=[default, master(*), compile, runtime(*), runtime, default(compile), compile(*), master], scala-tool=[default, master(*), compile, runtime(*), runtime, optional, optional(default), compile(*), master]}
 [debug] sbt-chain: module revision found in cache: org.scala-lang#scala-library;2.12.6
 [debug] 	found org.scala-lang#scala-library;2.12.6 in sbt-chain
 [debug] 	[2.12.6] org.scala-lang#scala-library;2.12.6
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->runtime]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->compile]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->master(*)]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->runtime(*)]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->compile]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->runtime]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->compile]
@@ -19,7 +22,23 @@
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->runtime]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->compile]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->compile(*)]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->default]
+[debug] sbt-chain: Checking cache for: dependency: org.scala-lang.modules#scala-xml_2.12;1.0.6 {compile=[default, compile, runtime, default(compile), master], runtime=[default, compile, runtime, default(compile), master], test=[default, compile, runtime, default(compile), master], compile-internal=[default, compile, runtime, default(compile), master], runtime-internal=[default, compile, runtime, default(compile), master], test-internal=[default, compile, runtime, default(compile), master], scala-tool=[master(*), compile, runtime(*), runtime, compile(*), master]}
+[debug] sbt-chain: module revision found in cache: org.scala-lang.modules#scala-xml_2.12;1.0.6
+[debug] 	found org.scala-lang.modules#scala-xml_2.12;1.0.6 in sbt-chain
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->runtime]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->runtime]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->default(compile)]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->runtime]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->master]
 [debug] resolving dependencies for configuration 'runtime'
 [debug] == resolving dependencies for default#clarkgamesresearch$sources;0.1 [runtime]
 [debug] == resolving dependencies for default#clarkgamesresearch$sources;0.1 [compile]
@@ -27,6 +46,9 @@
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->runtime]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->compile]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->master(*)]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->runtime(*)]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->compile]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->runtime]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->compile]
@@ -34,11 +56,27 @@
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->runtime]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->compile]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->compile(*)]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->default]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->runtime]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->runtime]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->default(compile)]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->runtime]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->master]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->default]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->runtime]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->compile]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->master(*)]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->runtime(*)]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->compile]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->runtime]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->compile]
@@ -46,7 +84,20 @@
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->runtime]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->compile]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->compile(*)]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->default]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->runtime]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->runtime]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->default(compile)]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->runtime]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->master]
 [debug] resolving dependencies for configuration 'test'
 [debug] == resolving dependencies for default#clarkgamesresearch$sources;0.1 [test]
 [debug] == resolving dependencies for default#clarkgamesresearch$sources;0.1 [runtime]
@@ -55,6 +106,9 @@
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->runtime]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->compile]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->master(*)]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->runtime(*)]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->compile]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->runtime]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->compile]
@@ -62,11 +116,27 @@
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->runtime]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->compile]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->compile(*)]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->default]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->runtime]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->runtime]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->default(compile)]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->runtime]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->master]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->default]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->runtime]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->compile]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->master(*)]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->runtime(*)]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->compile]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->runtime]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->compile]
@@ -74,11 +144,27 @@
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->runtime]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->compile]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->compile(*)]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->default]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->runtime]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->runtime]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->default(compile)]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->runtime]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->master]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [test->default]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [test->runtime]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [test->compile]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [test->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [test->master(*)]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [test->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [test->runtime(*)]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [test->compile]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [test->runtime]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [test->compile]
@@ -86,7 +172,20 @@
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [test->runtime]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [test->compile]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [test->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [test->compile(*)]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [test->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [test->default]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [test->runtime]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [test->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [test->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [test->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [test->runtime]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [test->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [test->default(compile)]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [test->runtime]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [test->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [test->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [test->master]
 [debug] resolving dependencies for configuration 'provided'
 [debug] == resolving dependencies for default#clarkgamesresearch$sources;0.1 [provided]
 [debug] resolving dependencies for configuration 'optional'
@@ -98,6 +197,9 @@
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->runtime]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->compile]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->master(*)]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->runtime(*)]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->compile]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->runtime]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->compile]
@@ -105,13 +207,29 @@
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->runtime]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->compile]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->compile(*)]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->default]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->runtime]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->runtime]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->default(compile)]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->runtime]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->master]
 [debug] == resolving dependencies for default#clarkgamesresearch$sources;0.1 [optional]
 [debug] == resolving dependencies for default#clarkgamesresearch$sources;0.1 [provided]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile-internal->default]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile-internal->runtime]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile-internal->compile]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile-internal->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile-internal->master(*)]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile-internal->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile-internal->runtime(*)]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile-internal->compile]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile-internal->runtime]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile-internal->compile]
@@ -119,7 +237,20 @@
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile-internal->runtime]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile-internal->compile]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile-internal->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile-internal->compile(*)]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile-internal->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile-internal->default]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile-internal->runtime]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile-internal->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile-internal->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile-internal->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile-internal->runtime]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile-internal->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile-internal->default(compile)]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile-internal->runtime]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile-internal->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile-internal->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile-internal->master]
 [debug] resolving dependencies for configuration 'runtime-internal'
 [debug] == resolving dependencies for default#clarkgamesresearch$sources;0.1 [runtime-internal]
 [debug] == resolving dependencies for default#clarkgamesresearch$sources;0.1 [runtime]
@@ -128,6 +259,9 @@
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->runtime]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->compile]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->master(*)]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->runtime(*)]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->compile]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->runtime]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->compile]
@@ -135,11 +269,27 @@
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->runtime]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->compile]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->compile(*)]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->default]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->runtime]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->runtime]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->default(compile)]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->runtime]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->master]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->default]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->runtime]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->compile]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->master(*)]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->runtime(*)]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->compile]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->runtime]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->compile]
@@ -147,12 +297,28 @@
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->runtime]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->compile]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->compile(*)]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->default]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->runtime]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->runtime]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->default(compile)]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->runtime]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->master]
 [debug] == resolving dependencies for default#clarkgamesresearch$sources;0.1 [optional]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime-internal->default]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime-internal->runtime]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime-internal->compile]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime-internal->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime-internal->master(*)]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime-internal->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime-internal->runtime(*)]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime-internal->compile]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime-internal->runtime]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime-internal->compile]
@@ -160,7 +326,20 @@
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime-internal->runtime]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime-internal->compile]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime-internal->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime-internal->compile(*)]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime-internal->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime-internal->default]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime-internal->runtime]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime-internal->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime-internal->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime-internal->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime-internal->runtime]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime-internal->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime-internal->default(compile)]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime-internal->runtime]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime-internal->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime-internal->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime-internal->master]
 [debug] resolving dependencies for configuration 'test-internal'
 [debug] == resolving dependencies for default#clarkgamesresearch$sources;0.1 [test-internal]
 [debug] == resolving dependencies for default#clarkgamesresearch$sources;0.1 [test]
@@ -170,6 +349,9 @@
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->runtime]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->compile]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->master(*)]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->runtime(*)]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->compile]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->runtime]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->compile]
@@ -177,11 +359,27 @@
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->runtime]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->compile]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->compile(*)]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [compile->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->default]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->runtime]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->runtime]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->default(compile)]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->runtime]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [compile->master]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->default]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->runtime]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->compile]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->master(*)]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->runtime(*)]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->compile]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->runtime]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->compile]
@@ -189,11 +387,27 @@
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->runtime]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->compile]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->compile(*)]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [runtime->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->default]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->runtime]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->runtime]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->default(compile)]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->runtime]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [runtime->master]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [test->default]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [test->runtime]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [test->compile]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [test->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [test->master(*)]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [test->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [test->runtime(*)]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [test->compile]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [test->runtime]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [test->compile]
@@ -201,13 +415,29 @@
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [test->runtime]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [test->compile]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [test->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [test->compile(*)]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [test->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [test->default]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [test->runtime]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [test->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [test->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [test->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [test->runtime]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [test->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [test->default(compile)]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [test->runtime]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [test->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [test->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [test->master]
 [debug] == resolving dependencies for default#clarkgamesresearch$sources;0.1 [optional]
 [debug] == resolving dependencies for default#clarkgamesresearch$sources;0.1 [provided]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [test-internal->default]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [test-internal->runtime]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [test-internal->compile]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [test-internal->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [test-internal->master(*)]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [test-internal->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [test-internal->runtime(*)]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [test-internal->compile]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [test-internal->runtime]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [test-internal->compile]
@@ -215,7 +445,20 @@
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [test-internal->runtime]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [test-internal->compile]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [test-internal->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [test-internal->compile(*)]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-library;2.12.6 [test-internal->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [test-internal->default]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [test-internal->runtime]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [test-internal->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [test-internal->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [test-internal->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [test-internal->runtime]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [test-internal->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [test-internal->default(compile)]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [test-internal->runtime]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [test-internal->compile]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [test-internal->master]
+[debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [test-internal->master]
 [debug] resolving dependencies for configuration 'plugin'
 [debug] == resolving dependencies for default#clarkgamesresearch$sources;0.1 [plugin]
 [debug] resolving dependencies for configuration 'pom'
@@ -250,9 +493,6 @@
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-compiler;2.12.6 [scala-tool->optional(default)]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-compiler;2.12.6 [scala-tool->master]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [scala-tool->master(*)]
-[debug] sbt-chain: Checking cache for: dependency: org.scala-lang.modules#scala-xml_2.12;1.0.6 {scala-tool=[master(*), compile, runtime(*), runtime, compile(*), master]}
-[debug] sbt-chain: module revision found in cache: org.scala-lang.modules#scala-xml_2.12;1.0.6
-[debug] 	found org.scala-lang.modules#scala-xml_2.12;1.0.6 in sbt-chain
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [scala-tool->compile]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [scala-tool->runtime(*)]
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang.modules#scala-xml_2.12;1.0.6 [scala-tool->compile]
@@ -281,42 +521,28 @@
 [debug] == resolving dependencies default#clarkgamesresearch$sources;0.1->org.scala-lang#scala-reflect;2.12.6 [scala-tool->master]
 [debug] 	resolved ivy file produced in cache
 [debug] :: downloading artifacts ::
-[debug] 		tried /home/lucas/.ivy2/local/org.scala-lang.modules/scala-xml_2.12/1.0.6/srcs/scala-xml_2.12-sources.jar
-[debug] 		tried /home/lucas/.ivy2/local/org.scala-lang/scala-reflect/2.12.6/srcs/scala-reflect-sources.jar
-[debug] 		tried https://repo1.maven.org/maven2/org/scala-lang/modules/scala-xml_2.12/1.0.6/scala-xml_2.12-1.0.6-sources.jar
-[debug] 		tried /home/lucas/.ivy2/local/org.scala-lang/scala-compiler/2.12.6/srcs/scala-compiler-sources.jar
-[debug] 		tried https://repo1.maven.org/maven2/org/scala-lang/scala-compiler/2.12.6/scala-compiler-2.12.6-sources.jar
-[debug] 		tried /home/lucas/.ivy2/local/org.scala-lang/scala-library/2.12.6/srcs/scala-library-sources.jar
-[debug] 		tried https://repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.12.6/scala-reflect-2.12.6-sources.jar
-[debug] 		tried https://repo1.maven.org/maven2/org/scala-lang/scala-library/2.12.6/scala-library-2.12.6-sources.jar
-[debug] 		tried /home/lucas/.ivy2/local/jline/jline/2.14.6/srcs/jline-sources.jar
-[debug] 		tried https://repo1.maven.org/maven2/jline/jline/2.14.6/jline-2.14.6-sources.jar
-[info] downloading https://repo1.maven.org/maven2/org/scala-lang/modules/scala-xml_2.12/1.0.6/scala-xml_2.12-1.0.6-sources.jar ...
-[debug] 	public: downloading https://repo1.maven.org/maven2/org/scala-lang/modules/scala-xml_2.12/1.0.6/scala-xml_2.12-1.0.6-sources.jar
-[debug] 	public: downloading https://repo1.maven.org/maven2/org/scala-lang/modules/scala-xml_2.12/1.0.6/scala-xml_2.12-1.0.6-sources.jar.sha1
-[info] downloading https://repo1.maven.org/maven2/org/scala-lang/scala-library/2.12.6/scala-library-2.12.6-sources.jar ...
-[debug] 	public: downloading https://repo1.maven.org/maven2/org/scala-lang/scala-library/2.12.6/scala-library-2.12.6-sources.jar
-[info] downloading https://repo1.maven.org/maven2/jline/jline/2.14.6/jline-2.14.6-sources.jar ...
-[debug] 	public: downloading https://repo1.maven.org/maven2/jline/jline/2.14.6/jline-2.14.6-sources.jar
-[info] downloading https://repo1.maven.org/maven2/org/scala-lang/scala-compiler/2.12.6/scala-compiler-2.12.6-sources.jar ...
-[debug] 	public: downloading https://repo1.maven.org/maven2/org/scala-lang/scala-compiler/2.12.6/scala-compiler-2.12.6-sources.jar
-[info] downloading https://repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.12.6/scala-reflect-2.12.6-sources.jar ...
-[debug] 	public: downloading https://repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.12.6/scala-reflect-2.12.6-sources.jar
-[debug] sha1 OK for https://repo1.maven.org/maven2/org/scala-lang/modules/scala-xml_2.12/1.0.6/scala-xml_2.12-1.0.6-sources.jar
-[info] 	[SUCCESSFUL ] org.scala-lang.modules#scala-xml_2.12;1.0.6!scala-xml_2.12.jar(src) (175ms)
-[debug] 	public: downloading https://repo1.maven.org/maven2/jline/jline/2.14.6/jline-2.14.6-sources.jar.sha1
-[debug] 	public: downloading https://repo1.maven.org/maven2/org/scala-lang/scala-compiler/2.12.6/scala-compiler-2.12.6-sources.jar.sha1
-[debug] sha1 OK for https://repo1.maven.org/maven2/jline/jline/2.14.6/jline-2.14.6-sources.jar
-[info] 	[SUCCESSFUL ] jline#jline;2.14.6!jline.jar(src) (898ms)
-[debug] 	public: downloading https://repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.12.6/scala-reflect-2.12.6-sources.jar.sha1
-[debug] sha1 OK for https://repo1.maven.org/maven2/org/scala-lang/scala-compiler/2.12.6/scala-compiler-2.12.6-sources.jar
-[info] 	[SUCCESSFUL ] org.scala-lang#scala-compiler;2.12.6!scala-compiler.jar(src) (992ms)
-[debug] 	public: downloading https://repo1.maven.org/maven2/org/scala-lang/scala-library/2.12.6/scala-library-2.12.6-sources.jar.sha1
-[debug] sha1 OK for https://repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.12.6/scala-reflect-2.12.6-sources.jar
-[info] 	[SUCCESSFUL ] org.scala-lang#scala-reflect;2.12.6!scala-reflect.jar(src) (1009ms)
-[debug] sha1 OK for https://repo1.maven.org/maven2/org/scala-lang/scala-library/2.12.6/scala-library-2.12.6-sources.jar
-[info] 	[SUCCESSFUL ] org.scala-lang#scala-library;2.12.6!scala-library.jar(src) (1039ms)
-[debug] :: resolution report :: resolve 68ms :: artifacts dl 1047ms
+[debug] 	[NOT REQUIRED] org.scala-lang#scala-library;2.12.6!scala-library.jar(src)
+[debug] 	[NOT REQUIRED] org.scala-lang#scala-compiler;2.12.6!scala-compiler.jar(src)
+[debug] 	[NOT REQUIRED] jline#jline;2.14.6!jline.jar(src)
+[debug] no default ivy user dir defined: set to /home/lucas/.ivy2
+[debug] including url: jar:file:/home/lucas/.sbt/boot/scala-2.12.6/org.scala-sbt/sbt/1.1.5/ivy-2.3.0-sbt-b18f59ea3bc914a297bb6f1a4f7fb0ace399e310.jar!/org/apache/ivy/core/settings/ivysettings-public.xml
+[debug] no default cache defined: set to /home/lucas/.ivy2/cache
+[debug] including url: jar:file:/home/lucas/.sbt/boot/scala-2.12.6/org.scala-sbt/sbt/1.1.5/ivy-2.3.0-sbt-b18f59ea3bc914a297bb6f1a4f7fb0ace399e310.jar!/org/apache/ivy/core/settings/ivysettings-shared.xml
+[debug] including url: jar:file:/home/lucas/.sbt/boot/scala-2.12.6/org.scala-sbt/sbt/1.1.5/ivy-2.3.0-sbt-b18f59ea3bc914a297bb6f1a4f7fb0ace399e310.jar!/org/apache/ivy/core/settings/ivysettings-local.xml
+[debug] 	[NOT REQUIRED] org.scala-lang#scala-reflect;2.12.6!scala-reflect.jar(src)
+[debug] including url: jar:file:/home/lucas/.sbt/boot/scala-2.12.6/org.scala-sbt/sbt/1.1.5/ivy-2.3.0-sbt-b18f59ea3bc914a297bb6f1a4f7fb0ace399e310.jar!/org/apache/ivy/core/settings/ivysettings-main-chain.xml
+[debug] including url: jar:file:/home/lucas/.sbt/boot/scala-2.12.6/org.scala-sbt/sbt/1.1.5/ivy-2.3.0-sbt-b18f59ea3bc914a297bb6f1a4f7fb0ace399e310.jar!/org/apache/ivy/core/settings/ivysettings-default-chain.xml
+[debug] settings loaded (20ms)
+[debug] 	default cache: /home/lucas/.ivy2/cache
+[debug] 	default resolver: default
+[debug] 	-- 5 resolvers:
+[debug] 	shared [file]
+[debug] 	default [chain] [local, main]
+[debug] 	public [ibiblio]
+[debug] 	main [chain] [shared, public]
+[debug] 	local [file]
+[debug] 	[NOT REQUIRED] org.scala-lang.modules#scala-xml_2.12;1.0.6!scala-xml_2.12.jar(src)
+[debug] :: resolution report :: resolve 119ms :: artifacts dl 65ms
 [debug] 	report for default#clarkgamesresearch$sources;0.1 compile produced in /home/lucas/IdeaProjects/ClarkGamesResearch/target/scala-2.12/resolution-cache/reports/default-clarkgamesresearch$sources-compile.xml
 [debug] 	report for default#clarkgamesresearch$sources;0.1 runtime produced in /home/lucas/IdeaProjects/ClarkGamesResearch/target/scala-2.12/resolution-cache/reports/default-clarkgamesresearch$sources-runtime.xml
 [debug] 	report for default#clarkgamesresearch$sources;0.1 test produced in /home/lucas/IdeaProjects/ClarkGamesResearch/target/scala-2.12/resolution-cache/reports/default-clarkgamesresearch$sources-test.xml
@@ -328,4 +554,4 @@
 [debug] 	report for default#clarkgamesresearch$sources;0.1 plugin produced in /home/lucas/IdeaProjects/ClarkGamesResearch/target/scala-2.12/resolution-cache/reports/default-clarkgamesresearch$sources-plugin.xml
 [debug] 	report for default#clarkgamesresearch$sources;0.1 pom produced in /home/lucas/IdeaProjects/ClarkGamesResearch/target/scala-2.12/resolution-cache/reports/default-clarkgamesresearch$sources-pom.xml
 [debug] 	report for default#clarkgamesresearch$sources;0.1 scala-tool produced in /home/lucas/IdeaProjects/ClarkGamesResearch/target/scala-2.12/resolution-cache/reports/default-clarkgamesresearch$sources-scala-tool.xml
-[debug] 	resolve done (68ms resolve - 1047ms download)
+[debug] 	resolve done (119ms resolve - 65ms download)

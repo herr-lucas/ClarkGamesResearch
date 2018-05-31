@@ -4,7 +4,7 @@
 		module="clarkgamesresearch_2.12"
 		revision="0.1"
 		status="integration"
-		publication="20180523095429"
+		publication="20180531183430"
 	>
 		<description>
 		ClarkGamesResearch
@@ -32,5 +32,6 @@
 	<dependencies>
 		<dependency org="org.scala-lang" name="scala-compiler" rev="2.12.6" conf="scala-tool->default,optional(default)"/>
 		<dependency org="org.scala-lang" name="scala-library" rev="2.12.6" conf="scala-tool->default,optional(default);compile->default(compile)"/>
+		<dependency org="org.scala-lang.modules" name="scala-xml_2.12" rev="1.0.6" conf="compile->default(compile)"/>
 	</dependencies>
 </ivy-module>

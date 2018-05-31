@@ -130,6 +130,7 @@ object Start {
     simple3PointIntersectionTest()
     simple3PointNoIntersectionTest()
     simpleTwoLineIntersection()
+    new EnvironmentExtractor
   }
 
   def simple3PointIntersectionTest(): Unit = {
