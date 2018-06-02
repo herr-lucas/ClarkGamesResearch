@@ -76,9 +76,10 @@ case class PointAndDirection(p: Point, d: Direction) {
     // sx*y = sy *(x - xi) + yi *sx
     LineNormalForm(A, B, C)
   }
+  def this(p1: Point, p2: Point) = this(p1, p1.pathToPoint(p2))
 }
 
-
+// RENAME THIS because its not normalized! !!!!!!!!!!!!!!!!
 case class Direction(x: Double, y: Double)
 
 // Change this name to LineSegment?
@@ -92,7 +93,21 @@ case class Line(lid: Int, lname: String, p1: Point, p2: Point, val numSamples: I
     }
   }
   def intersect(pointAndDirection: PointAndDirection): Boolean = {
-    false
+    val normalFormOther = pointAndDirection.toLineNormalForm
+    val normalForm = new PointAndDirection(p1, p2).toLineNormalForm
+    val LineNormalForm.lineIntersection(normalForm, normalFormOther)
+
+  }
+
+  def contains(p: Point): Boolean = {
+    val d1 = new PointAndDirection(p1, p2).d
+    val d2 = new PointAndDirection(p, p2).d
+    if (d1.x == 0) {
+      if (d2.x == 0) {
+        (d1.y > 0 & d2.y > 0 & d1.y > d2.y) || (d1.y < 0 & d2.y < 0 & d1.y < d2.y)
+      }
+    }
+    (d1.y == d2.y & d1.x == d2.x)
   }
 
   def intersectDistance(pointAndDirection: PointAndDirection): Option[Double] = {
