@@ -1,34 +1,36 @@
 import java.lang.Math;
 
 trait VisionTestable {
-  def isVisible(g: Geo, e: Environment, verbose: Boolean): Boolean
+  def isVisible(g: Geo, e: Environment): Boolean
   def intersect(pointAndTwoDVector: PointAndTwoDVector): Boolean
   def intersectDistance(pointAndTwoDVector: PointAndTwoDVector): Option[Double]
 }
 abstract class Geo(val id: Int, val name: String) extends VisionTestable
 case class Point(pid: Int = -1, pname: String = "", x: Double, y: Double) extends Geo(pid, pname) {
-  def isVisible(g: Geo, e: Environment, verbose: Boolean = false): Boolean = {
+  def isVisibleR(g: Geo, geos: Seq[Geo]): Boolean = {
     g match {
       case p: Point => {
         val closest_intersect: Seq[Double] = {
-          println(e.filter(Seq(p, this))) // need to clean up ids here to make sure that proper lines are removed!
-          e.filter(Seq(p, this)).map(_.intersectDistance(PointAndTwoDVector(p, pathToPoint(p))))
+          println(geos) // need to clean up ids here to make sure that proper lines are removed!
+          geos.map(_.intersectDistance(PointAndTwoDVector(p, pathToPoint(p))))
         }.flatten
         println(closest_intersect)
         if (closest_intersect.isEmpty) true
         else if (closest_intersect.min < dist(p)) {
-          if (verbose)
-            println("Blocked by: " + e.filter(Seq(p, this))
+            /*println("Blocked by: " + geos
               .filterNot(_.intersectDistance(PointAndTwoDVector(p, pathToPoint(p))) == None)
-            )
+            )*/
           false
         }
         else true
       }
       case l: LineSegment => {
-        l.isVisible(this, e)
+        l.isVisibleR(this, geos)
       }
     }
+  }
+  def isVisible(g: Geo, e: Environment) = {
+    isVisibleR(g, e.filter(Seq(g, this)))
   }
   def dist(p: Point): Double = {
     Math.sqrt(Math.pow(p.x - x, 2) + Math.pow((p.y - y), 2))
@@ -91,8 +93,12 @@ case class TwoDVector(x: Double, y: Double)
 
 case class LineSegment(lid: Int = -1, lname: String = "", p1: Point, p2: Point, val numSamples: Int = 3) extends Geo(lid, lname) {
   lazy val samples: Seq[Point] = pointSamples(numSamples)
-  def isVisible(g: Geo, e: Environment, verbose: Boolean = false): Boolean = {
-    samples.map(_.isVisible(g, e)).exists(_ == true)
+  def isVisibleR(g: Geo, geos: Seq[Geo]): Boolean = {
+    samples.map(_.isVisibleR(g, geos)).exists(_ == true)
+  }
+
+  def isVisible(g: Geo, e: Environment): Boolean = {
+    isVisibleR(g, e.filter(Seq(this, g)))
   }
 
   def intersect(pointAndTwoDVector: PointAndTwoDVector): Boolean = {

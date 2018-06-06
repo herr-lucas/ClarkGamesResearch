@@ -5,7 +5,7 @@ object BasicTests {
     val p3 = Point(2, "p3", 0, 10)
     val e = new Environment(Seq(p1, p2, p3))
     println("Simple 3 point intersection test: " + {
-      if (p1.isVisible(p3, e, verbose = true) == false) "passes" else "fails"}
+      if (p1.isVisible(p3, e) == false) "passes" else "fails"}
     )
   }
 
@@ -15,7 +15,7 @@ object BasicTests {
     val p3 = Point(2, "p3", 0, 10)
     val e = new Environment(Seq(p1, p2, p3))
     println("Simple 3 point no intersection test: " + {
-      if (p1.isVisible(p3, e, verbose = true) == true) "passes" else "fails"}
+      if (p1.isVisible(p3, e) == true) "passes" else "fails"}
     )
   }
 
