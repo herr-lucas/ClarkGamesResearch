@@ -4,7 +4,7 @@
 		module="clarkgamesresearch$sources"
 		revision="0.1"
 		status="integration"
-		publication="20180531183431"
+		publication="20180606120601"
 	/>
 	<configurations>
 		<conf name="compile" visibility="public" description=""/>
