@@ -42,7 +42,7 @@ object BasicTests {
   def simpleThreeLineSegmentVisibilityTest = {
     val line1 = LineSegment(p1 = Point(x = 0, y = 0), p2 = Point(x = 0, y = 10))
     val line2 = LineSegment(p1 = Point(x = 10, y = 0), p2 = Point(x = 10, y = 5))
-    val line3 = LineSegment(p1 = Point(x = 5, y = 0), p2 = Point(x = 5, y = 1))
+    val line3 = LineSegment(p1 = Point(x = 5, y = 0), p2 = Point(x = 5, y = 3))
     val env = Environment(Seq(line1, line2, line3))
     println("Is line1 visible to line2? " + line1.isVisible(line3, env))
   }

@@ -11,7 +11,7 @@ case class Point(pid: Int = -1, pname: String = "", x: Double, y: Double) extend
     g match {
       case p: Point => {
         val closest_intersect: Seq[Double] = {
-          println(geos) // need to clean up ids here to make sure that proper lines are removed!
+          println(geos)
           geos.map(_.intersectDistance(PointAndTwoDVector(p, pathToPoint(p))))
         }.flatten
         println(closest_intersect)
@@ -42,8 +42,6 @@ case class Point(pid: Int = -1, pname: String = "", x: Double, y: Double) extend
   def intersect(pointAndTwoDVector: PointAndTwoDVector): Boolean = {
     val dx = pointAndTwoDVector.p.x - x
     val dy = pointAndTwoDVector.p.y - y
-    println("V" + dy * pointAndTwoDVector.d.x)
-    println("D" + (dy * pointAndTwoDVector.d.x -  dx * pointAndTwoDVector.d.y))
     if (dy * pointAndTwoDVector.d.x == dx * pointAndTwoDVector.d.y) // Double check this logic
       true
     else
@@ -55,7 +53,7 @@ case class Point(pid: Int = -1, pname: String = "", x: Double, y: Double) extend
     else None
   }
 
-  override def toString: String = s"Id $id Name $name ($x, $y)"
+  override def toString: String = if (id == -1) s"($x, $y)" else s"Id $id Name $name ($x, $y)"
 }
 
 object LineSegmentNormalForm {
@@ -91,14 +89,18 @@ case class PointAndTwoDVector(p: Point, d: TwoDVector) {
 
 case class TwoDVector(x: Double, y: Double)
 
-case class LineSegment(lid: Int = -1, lname: String = "", p1: Point, p2: Point, val numSamples: Int = 3) extends Geo(lid, lname) {
+case class LineSegment(lid: Int = -1, lname: String = "", p1: Point, p2: Point,
+                       val numSamples: Int = 3) extends Geo(lid, lname) {
   lazy val samples: Seq[Point] = pointSamples(numSamples)
   def isVisibleR(g: Geo, geos: Seq[Geo]): Boolean = {
     samples.map(_.isVisibleR(g, geos)).exists(_ == true)
   }
 
   def isVisible(g: Geo, e: Environment): Boolean = {
-    isVisibleR(g, e.filter(Seq(this, g)))
+    println("Is Visible Line level " + e.items)
+    val res = isVisibleR(g, e.filter(Seq(this, g)))
+    println("Is Visible Line level " + e.filter(Seq(this, g)))
+    res
   }
 
   def intersect(pointAndTwoDVector: PointAndTwoDVector): Boolean = {
@@ -138,6 +140,8 @@ case class LineSegment(lid: Int = -1, lname: String = "", p1: Point, p2: Point, 
     val rand = Math.random()
     Point(0, "", p1.x + rand * difference.x, p1.y + rand * difference.y)
   }
+
+  override def toString: String = if (this.id == -1) p1 + " to " + p2 else super.toString
 }
 
 /*
@@ -148,6 +152,16 @@ case class Shape(lines: Seq[LineSegment]) extends Geo {
 case class Environment(items: Seq[Geo]) {
   def filter(dontInclude: Seq[Geo]): Seq[Geo] = {
     items.filterNot(i => dontInclude.map(_.id).contains(i.id))
+  }
+  def this(lines: Seq[(Point, Point)]) = {
+    // could use .foldLeft
+    var geos: Seq[LineSegment] = Seq.empty
+    var id = 0
+    lines.foreach { (p1: Point, p2: Point) =>
+      geos = geos :+ LineSegment(lid = id, p1 = p1, p2 = p2)
+      id += 1
+    }
+    this(geos)
   }
 }
 

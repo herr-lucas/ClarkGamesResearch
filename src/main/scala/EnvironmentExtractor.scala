@@ -12,7 +12,7 @@ object EnvironmentExtractor {
 }
 class EnvironmentExtractor {
   val foo = <foo><bar type="greet">hi</bar><bar type="count">1</bar><bar type="color">yellow</bar></foo>
-  println(foo)
+  println("Environment extracted as xml: passes")
 }
 
 
