@@ -10,13 +10,14 @@ case class Point(pid: Int = -1, pname: String = "", x: Double, y: Double) extend
   def isVisibleR(g: Geo, geos: Seq[Geo]): Boolean = {
     g match {
       case p: Point => {
-        val closest_intersect: Seq[Double] = {
+        val intersect_distances: Seq[Double] = {
           println(geos)
-          geos.map(_.intersectDistance(PointAndTwoDVector(p, pathToPoint(p))))
+          val pointAndVector = PointAndTwoDVector(this, pathToPoint(p))
+          geos.map(_.intersectDistance(pointAndVector))
         }.flatten
-        println(closest_intersect)
-        if (closest_intersect.isEmpty) true
-        else if (closest_intersect.min < dist(p)) {
+        println(s"intersect distances $intersect_distances")
+        if (intersect_distances.isEmpty) true
+        else if (intersect_distances.min < dist(p)) {
             /*println("Blocked by: " + geos
               .filterNot(_.intersectDistance(PointAndTwoDVector(p, pathToPoint(p))) == None)
             )*/
@@ -29,7 +30,7 @@ case class Point(pid: Int = -1, pname: String = "", x: Double, y: Double) extend
       }
     }
   }
-  def isVisible(g: Geo, e: Environment) = {
+  def isVisible(g: Geo, e: Environment): Boolean = {
     isVisibleR(g, e.filter(Seq(g, this)))
   }
   def dist(p: Point): Double = {
@@ -42,6 +43,8 @@ case class Point(pid: Int = -1, pname: String = "", x: Double, y: Double) extend
   def intersect(pointAndTwoDVector: PointAndTwoDVector): Boolean = {
     val dx = pointAndTwoDVector.p.x - x
     val dy = pointAndTwoDVector.p.y - y
+    println("Relative intersection distance:")
+    println((dy * pointAndTwoDVector.d.x - dx * pointAndTwoDVector.d.y) / (0.5 * (dy * pointAndTwoDVector.d.x + dx * pointAndTwoDVector.d.y)))
     if (dy * pointAndTwoDVector.d.x == dx * pointAndTwoDVector.d.y) // Double check this logic
       true
     else
@@ -125,7 +128,12 @@ case class LineSegment(lid: Int = -1, lname: String = "", p1: Point, p2: Point,
   }
 
   def intersectDistance(pointAndTwoDVector: PointAndTwoDVector): Option[Double] = {
-    Some(-1)
+    val normalFormOther = pointAndTwoDVector.toLineSegmentNormalForm
+    val normalForm = new PointAndTwoDVector(p1, p2).toLineSegmentNormalForm
+    val intersect = LineSegmentNormalForm.lineIntersection(normalForm, normalFormOther)
+    if (intersect.map(contains(_)).getOrElse(false)) {
+      intersect.map(_.dist(pointAndTwoDVector.p))
+    } else None
   }
 
   def length(): Double = {
@@ -141,7 +149,7 @@ case class LineSegment(lid: Int = -1, lname: String = "", p1: Point, p2: Point,
     Point(0, "", p1.x + rand * difference.x, p1.y + rand * difference.y)
   }
 
-  override def toString: String = if (this.id == -1) p1 + " to " + p2 else super.toString
+  override def toString: String = if (this.id == -1) p1 + " to " + p2 else s"id $lid, name $lname $p1 to $p2"
 }
 
 /*
@@ -149,19 +157,11 @@ case class Shape(lines: Seq[LineSegment]) extends Geo {
   def isVisible(g: Geo, e: Environment): Boolean = false
 }*/
 
+
+// TODO: IDS for geos should be in here not in the objects themselves.
 case class Environment(items: Seq[Geo]) {
   def filter(dontInclude: Seq[Geo]): Seq[Geo] = {
     items.filterNot(i => dontInclude.map(_.id).contains(i.id))
-  }
-  def this(lines: Seq[(Point, Point)]) = {
-    // could use .foldLeft
-    var geos: Seq[LineSegment] = Seq.empty
-    var id = 0
-    lines.foreach { (p1: Point, p2: Point) =>
-      geos = geos :+ LineSegment(lid = id, p1 = p1, p2 = p2)
-      id += 1
-    }
-    this(geos)
   }
 }
 
