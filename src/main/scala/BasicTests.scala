@@ -5,7 +5,7 @@ object BasicTests {
     val p3 = Point(2, "p3", 0, 10)
     val e = new Environment(Seq(p1, p2, p3))
     println("Simple 3 point intersection test: " + {
-      if (p1.isVisible(p3, e) == false) "passes" else "fails"}
+      if (p1.isVisible(p3, e) == false) "passes" else "FAILS!!!"}
     )
   }
 
@@ -15,7 +15,7 @@ object BasicTests {
     val p3 = Point(2, "p3", 0, 10)
     val e = new Environment(Seq(p1, p2, p3))
     println("Simple 3 point no intersection test: " + {
-      if (p1.isVisible(p3, e) == true) "passes" else "fails"}
+      if (p1.isVisible(p3, e) == true) "passes" else "FAILS!!!"}
     )
   }
 
@@ -24,14 +24,14 @@ object BasicTests {
     val l2 = LineSegmentNormalForm(-2, 1, 2) // y = 2x + 2
     val pIntersect = LineSegmentNormalForm.lineIntersection(l1, l2)
     println("Simple two line intersection test: "  + {
-      if (pIntersect.get.x == 3.0 && pIntersect.get.y == 8.0) "passes" else "fails"
+      if (pIntersect.get.x == 3.0 && pIntersect.get.y == 8.0) "passes" else "FAILS!!!"
     })
   }
 
   def simpleLineSegmentContainsTest: Unit = {
     val line = LineSegment(0 , "", Point(0, "", 0, 0), Point(0, "", 5, 10), 10)
     println("Simple line contains test: " + {
-      if (line.contains(Point(x = 2.5, y =  5))) "passes" else "fails"
+      if (line.contains(Point(x = 2.5, y =  5))) "passes" else "FAILS!!!"
     })
   }
 
@@ -39,11 +39,39 @@ object BasicTests {
     new EnvironmentExtractor
   }
 
-  def simpleThreeLineSegmentVisibilityTest = {
+  def simpleThreeLineSegmentNoVisibilityTest = {
     val line1 = LineSegment(lid = 0, p1 = Point(x = 0, y = 0), p2 = Point(x = 0, y = 10)) //vertical line
     val line2 = LineSegment(lid = 1, p1 = Point(x = 10, y = 0), p2 = Point(x = 10, y = 5)) // verticla line 2
     val line3 = LineSegment(lid = 2, p1 = Point(x = 5, y = 0), p2 = Point(x = 5, y = 10)) // vertical line 3
     val env = Environment(Seq(line1, line2, line3))
-    println("Is line1 visible to line2? " + line1.isVisible(line2, env)) // line 3 should block
+    println("Simple line blocking test  " + {if (line1.isVisible(line2, env)) "FAILS!!!" else "passes"}) // line 3 should block
+  }
+
+  def simpleThreeLineSegmentVisibilityTest: Unit = {
+    val line1 = LineSegment(lid = 0, p1 = Point(x = 0, y = 0), p2 = Point(x = 0, y = 10)) //vertical line
+    val line2 = LineSegment(lid = 1, p1 = Point(x = 10, y = 0), p2 = Point(x = 10, y = 5)) // verticla line 2
+    val line3 = LineSegment(lid = 2, p1 = Point(x = 5, y = 0), p2 = Point(x = 5, y = 10)) // vertical line 3
+    val env = Environment(Seq(line1, line2, line3))
+    println("Simple line no block test " + {if (line1.isVisible(line3, env)) "passes" else "FAILS!!!"})
+  }
+
+  def complicatedThreeLineSegmentVisiblityTest: Unit = {
+    val line1 = LineSegment(lid = 0, p1 = Point(x = 0, y = 0), p2 = Point(x = 10, y = 10)) //vertical line
+    val line2 = LineSegment(lid = 1, p1 = Point(x = 5, y = 0), p2 = Point(x = 8, y = 3)) // verticla line 2
+    val line3 = LineSegment(lid = 2, p1 = Point(x = 6, y = 0), p2 = Point(x = 8, y = 4)) // vertical line 3
+    val env = Environment(Seq(line1, line2, line3))
+    println("Complex line no block test 1 " + {if (line1.isVisible(line2, env)) "passes" else "FAILS!!!"})
+    println("Complex line no block test 2 " + {if (line1.isVisible(line3, env)) "passes" else "FAILS!!!"})
+  }
+
+  def complicatedThreeLineSegmentNoVisibilityTest: Unit = {
+    val line1 = LineSegment(lid = 0, p1 = Point(x = 0, y = 0), p2 = Point(x = 10, y = 10), verbose = true) //vertical line
+    val line2 = LineSegment(lid = 1, p1 = Point(x = 5, y = 0), p2 = Point(x = 8, y = 3), verbose = true) // verticla line 2
+    val line3 = LineSegment(lid = 2, p1 = Point(x = 6, y = 0), p2 = Point(x = 8, y = 2.98), verbose = true) // vertical line 3
+    val env = Environment(Seq(line1, line2, line3))
+    println("Complex line block test 1 " + {if (!line1.isVisible(line3, env)) "passes" else "FAILS!!!"})
+    println("Complex line block test 2 " + {if (!line3.isVisible(line1, env)) "passes" else "FAILS!!!"})
+    println("Complex line block test 3 " + {if (line3.isVisible(line2, env)) "passes" else "FAILS!!!"})
+    println("Complex line block test 4 " + {if (line1.isVisible(line2, env)) "passes" else "FAILS!!!"})
   }
 }

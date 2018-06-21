@@ -1,26 +1,31 @@
 import java.lang.Math;
 
-trait VisionTestable {
+abstract class VisionTestable(val verbose: Boolean = false) {
   def isVisible(g: Geo, e: Environment): Boolean
   def intersect(pointAndTwoDVector: PointAndTwoDVector): Boolean
   def intersectDistance(pointAndTwoDVector: PointAndTwoDVector): Option[Double]
 }
-abstract class Geo(val id: Int, val name: String) extends VisionTestable
-case class Point(pid: Int = -1, pname: String = "", x: Double, y: Double) extends Geo(pid, pname) {
+abstract class Geo(val id: Int, val name: String, verbose: Boolean) extends VisionTestable(verbose = verbose)
+case class Point(pid: Int = -1, pname: String = "", x: Double, y: Double, override val verbose: Boolean = false) extends Geo(pid, pname, verbose) {
   def isVisibleR(g: Geo, geos: Seq[Geo]): Boolean = {
     g match {
       case p: Point => {
         val intersect_distances: Seq[Double] = {
-          println(geos)
+          if (verbose) {
+            println(s"Checking if $this can see $p. Candidate blockers are: $geos")
+          }
           val pointAndVector = PointAndTwoDVector(this, pathToPoint(p))
-          geos.map(_.intersectDistance(pointAndVector))
+          val dists = geos.map(_.intersectDistance(pointAndVector))
+          dists
         }.flatten
-        println(s"intersect distances $intersect_distances")
+        if (verbose) println(s"intersect distances $intersect_distances")
         if (intersect_distances.isEmpty) true
         else if (intersect_distances.min < dist(p)) {
-            /*println("Blocked by: " + geos
+          if (verbose) {
+            println("Blocked by: " + geos
               .filterNot(_.intersectDistance(PointAndTwoDVector(p, pathToPoint(p))) == None)
-            )*/
+            )
+          }
           false
         }
         else true
@@ -43,8 +48,10 @@ case class Point(pid: Int = -1, pname: String = "", x: Double, y: Double) extend
   def intersect(pointAndTwoDVector: PointAndTwoDVector): Boolean = {
     val dx = pointAndTwoDVector.p.x - x
     val dy = pointAndTwoDVector.p.y - y
-    println("Relative intersection distance:")
-    println((dy * pointAndTwoDVector.d.x - dx * pointAndTwoDVector.d.y) / (0.5 * (dy * pointAndTwoDVector.d.x + dx * pointAndTwoDVector.d.y)))
+    if (verbose) {
+      println("Relative intersection distance:")
+      //println((dy * pointAndTwoDVector.d.x - dx * pointAndTwoDVector.d.y) / (0.5 * (dy * pointAndTwoDVector.d.x + dx * pointAndTwoDVector.d.y)))
+    }
     if (dy * pointAndTwoDVector.d.x == dx * pointAndTwoDVector.d.y) // Double check this logic
       true
     else
@@ -93,16 +100,14 @@ case class PointAndTwoDVector(p: Point, d: TwoDVector) {
 case class TwoDVector(x: Double, y: Double)
 
 case class LineSegment(lid: Int = -1, lname: String = "", p1: Point, p2: Point,
-                       val numSamples: Int = 3) extends Geo(lid, lname) {
+                       val numSamples: Int = 3, override val verbose: Boolean = false) extends Geo(lid, lname, verbose) {
   lazy val samples: Seq[Point] = pointSamples(numSamples)
   def isVisibleR(g: Geo, geos: Seq[Geo]): Boolean = {
     samples.map(_.isVisibleR(g, geos)).exists(_ == true)
   }
 
   def isVisible(g: Geo, e: Environment): Boolean = {
-    println("Is Visible Line level " + e.items)
     val res = isVisibleR(g, e.filter(Seq(this, g)))
-    println("Is Visible Line level " + e.filter(Seq(this, g)))
     res
   }
 
@@ -146,7 +151,7 @@ case class LineSegment(lid: Int = -1, lname: String = "", p1: Point, p2: Point,
   def randomPoint(): Point = {
     val difference = p1.pathToPoint(p2)
     val rand = Math.random()
-    Point(0, "", p1.x + rand * difference.x, p1.y + rand * difference.y)
+    Point(0, "", p1.x + rand * difference.x, p1.y + rand * difference.y, verbose)
   }
 
   override def toString: String = if (this.id == -1) p1 + " to " + p2 else s"id $lid, name $lname $p1 to $p2"
@@ -174,6 +179,9 @@ object Start {
     simpleXMLLoadTest
     simpleLineSegmentContainsTest
     simpleThreeLineSegmentVisibilityTest
+    simpleThreeLineSegmentNoVisibilityTest
+    complicatedThreeLineSegmentVisiblityTest
+    complicatedThreeLineSegmentNoVisibilityTest
   }
 }
 
