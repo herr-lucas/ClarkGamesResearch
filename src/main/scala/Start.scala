@@ -50,7 +50,7 @@ case class Point(pid: Int = -1, pname: String = "", x: Double, y: Double, overri
     val dy = pointAndTwoDVector.p.y - y
     if (verbose) {
       println("Relative intersection distance:")
-      //println((dy * pointAndTwoDVector.d.x - dx * pointAndTwoDVector.d.y) / (0.5 * (dy * pointAndTwoDVector.d.x + dx * pointAndTwoDVector.d.y)))
+      println((Math.abs(dy * pointAndTwoDVector.d.x - dx * pointAndTwoDVector.d.y) / (0.5 * (dy * pointAndTwoDVector.d.x + dx * pointAndTwoDVector.d.y))))
     }
     if (dy * pointAndTwoDVector.d.x == dx * pointAndTwoDVector.d.y) // Double check this logic
       true
@@ -128,16 +128,23 @@ case class LineSegment(lid: Int = -1, lname: String = "", p1: Point, p2: Point,
     }
     else {
       val ratio  = d2.x / d1.x
-      (ratio * d1.y == d2.y)
+      val diff = Math.abs((ratio * d1.y - d2.y) * 2 / (ratio * d1.y + d2.y))
+      (diff < 0.00001)
     }
   }
 
   def intersectDistance(pointAndTwoDVector: PointAndTwoDVector): Option[Double] = {
+    if (verbose) println(s"what line: $this + $pointAndTwoDVector")
     val normalFormOther = pointAndTwoDVector.toLineSegmentNormalForm
     val normalForm = new PointAndTwoDVector(p1, p2).toLineSegmentNormalForm
     val intersect = LineSegmentNormalForm.lineIntersection(normalForm, normalFormOther)
+    if (verbose) {
+      println(s"Intersection point: $intersect")
+    }
     if (intersect.map(contains(_)).getOrElse(false)) {
-      intersect.map(_.dist(pointAndTwoDVector.p))
+      val t = intersect.map(_.dist(pointAndTwoDVector.p))
+      if (verbose) println("Distance " + t)
+      t
     } else None
   }
 
