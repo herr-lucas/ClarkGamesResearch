@@ -1,5 +1,13 @@
 import java.lang.Math;
 
+object MathHelpers {
+  val NumericalIntersectionError = 0.0001
+  def relativeError(x: Double, y: Double): Double = {
+    Math.abs((x - y) * 2 / (x + y))
+  }
+}
+import MathHelpers._
+
 abstract class VisionTestable(val verbose: Boolean = false) {
   def isVisible(g: Geo, e: Environment): Boolean
   def intersect(pointAndTwoDVector: PointAndTwoDVector): Boolean
@@ -10,20 +18,21 @@ case class Point(pid: Int = -1, pname: String = "", x: Double, y: Double, overri
   def isVisibleR(g: Geo, geos: Seq[Geo]): Boolean = {
     g match {
       case p: Point => {
-        val intersect_distances: Seq[Double] = {
+        val geos_and_distances: Seq[(Geo, Double)] = {
           if (verbose) {
             println(s"Checking if $this can see $p. Candidate blockers are: $geos")
           }
-          val pointAndVector = PointAndTwoDVector(this, pathToPoint(p))
-          val dists = geos.map(_.intersectDistance(pointAndVector))
-          dists
-        }.flatten
-        if (verbose) println(s"intersect distances $intersect_distances")
-        if (intersect_distances.isEmpty) true
-        else if (intersect_distances.min < dist(p)) {
+          val pointAndVector = lineToPoint(p)
+          if (verbose) println(s"Point And Vector $pointAndVector")
+          geos.flatMap(g => g.intersectDistance(pointAndVector).map(x => (g, x)))
+        }
+        if (verbose) println(s"intersect distances ${geos_and_distances.map(_._2)}")
+        val dist_to_p = dist(p)
+        if (geos_and_distances.isEmpty) true
+        else if (geos_and_distances.map(_._2).min < dist_to_p) {
           if (verbose) {
-            println("Blocked by: " + geos
-              .filterNot(_.intersectDistance(PointAndTwoDVector(p, pathToPoint(p))) == None)
+            println("Blocked by: " + geos_and_distances
+              .filter(_._2 < dist_to_p)
             )
           }
           false
@@ -34,6 +43,10 @@ case class Point(pid: Int = -1, pname: String = "", x: Double, y: Double, overri
         l.isVisibleR(this, geos)
       }
     }
+  }
+
+  def lineToPoint(point: Point): PointAndTwoDVector = {
+    PointAndTwoDVector(this, pathToPoint(point))
   }
   def isVisible(g: Geo, e: Environment): Boolean = {
     isVisibleR(g, e.filter(Seq(g, this)))
@@ -46,11 +59,12 @@ case class Point(pid: Int = -1, pname: String = "", x: Double, y: Double, overri
     TwoDVector(p.x - x, p.y - y)
   }
   def intersect(pointAndTwoDVector: PointAndTwoDVector): Boolean = {
+    // TODO: THIS desperatly needs to be fixed. !!
     val dx = pointAndTwoDVector.p.x - x
     val dy = pointAndTwoDVector.p.y - y
     if (verbose) {
       println("Relative intersection distance:")
-      println((Math.abs(dy * pointAndTwoDVector.d.x - dx * pointAndTwoDVector.d.y) / (0.5 * (dy * pointAndTwoDVector.d.x + dx * pointAndTwoDVector.d.y))))
+      println(relativeError(dy * pointAndTwoDVector.d.x,  dx * pointAndTwoDVector.d.y))
     }
     if (dy * pointAndTwoDVector.d.x == dx * pointAndTwoDVector.d.y) // Double check this logic
       true
@@ -100,7 +114,7 @@ case class PointAndTwoDVector(p: Point, d: TwoDVector) {
 case class TwoDVector(x: Double, y: Double)
 
 case class LineSegment(lid: Int = -1, lname: String = "", p1: Point, p2: Point,
-                       val numSamples: Int = 3, override val verbose: Boolean = false) extends Geo(lid, lname, verbose) {
+                       val numSamples: Int = 20, override val verbose: Boolean = false) extends Geo(lid, lname, verbose) {
   lazy val samples: Seq[Point] = pointSamples(numSamples)
   def isVisibleR(g: Geo, geos: Seq[Geo]): Boolean = {
     samples.map(_.isVisibleR(g, geos)).exists(_ == true)
@@ -128,13 +142,12 @@ case class LineSegment(lid: Int = -1, lname: String = "", p1: Point, p2: Point,
     }
     else {
       val ratio  = d2.x / d1.x
-      val diff = Math.abs((ratio * d1.y - d2.y) * 2 / (ratio * d1.y + d2.y))
-      (diff < 0.00001)
+      val diff = relativeError(ratio * d1.y, d2.y)
+      (diff < NumericalIntersectionError)
     }
   }
 
   def intersectDistance(pointAndTwoDVector: PointAndTwoDVector): Option[Double] = {
-    if (verbose) println(s"what line: $this + $pointAndTwoDVector")
     val normalFormOther = pointAndTwoDVector.toLineSegmentNormalForm
     val normalForm = new PointAndTwoDVector(p1, p2).toLineSegmentNormalForm
     val intersect = LineSegmentNormalForm.lineIntersection(normalForm, normalFormOther)
@@ -142,9 +155,7 @@ case class LineSegment(lid: Int = -1, lname: String = "", p1: Point, p2: Point,
       println(s"Intersection point: $intersect")
     }
     if (intersect.map(contains(_)).getOrElse(false)) {
-      val t = intersect.map(_.dist(pointAndTwoDVector.p))
-      if (verbose) println("Distance " + t)
-      t
+      intersect.map(_.dist(pointAndTwoDVector.p))
     } else None
   }
 

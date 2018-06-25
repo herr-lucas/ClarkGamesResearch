@@ -48,26 +48,28 @@ object BasicTests {
   }
 
   def simpleThreeLineSegmentVisibilityTest: Unit = {
-    val line1 = LineSegment(lid = 0, p1 = Point(x = 0, y = 0), p2 = Point(x = 0, y = 10)) //vertical line
-    val line2 = LineSegment(lid = 1, p1 = Point(x = 10, y = 0), p2 = Point(x = 10, y = 5)) // verticla line 2
+    val line1 = LineSegment(lid = 0, p1 = Point(x = 0, y = 0), p2 = Point(x = 0, y = 10)) // vertical line
+    val line2 = LineSegment(lid = 1, p1 = Point(x = 10, y = 0), p2 = Point(x = 10, y = 5)) // vertical line 2
     val line3 = LineSegment(lid = 2, p1 = Point(x = 5, y = 0), p2 = Point(x = 5, y = 10)) // vertical line 3
     val env = Environment(Seq(line1, line2, line3))
     println("Simple line no block test " + {if (line1.isVisible(line3, env)) "passes" else "FAILS!!!"})
   }
 
   def complicatedThreeLineSegmentVisiblityTest: Unit = {
-    val line1 = LineSegment(lid = 0, p1 = Point(x = 0, y = 0), p2 = Point(x = 10, y = 10)) //vertical line
-    val line2 = LineSegment(lid = 1, p1 = Point(x = 5, y = 0), p2 = Point(x = 8, y = 3)) // verticla line 2
-    val line3 = LineSegment(lid = 2, p1 = Point(x = 6, y = 0), p2 = Point(x = 8, y = 4)) // vertical line 3
+    val v = false
+    val line1 = LineSegment(lid = 0, p1 = Point(x = 0, y = 0), p2 = Point(x = 10, y = 10), verbose = v) // vertical line
+    val line2 = LineSegment(lid = 1, p1 = Point(x = 5, y = 0), p2 = Point(x = 8, y = 3), verbose = true) // vertical line 2
+    val line3 = LineSegment(lid = 2, p1 = Point(x = 6, y = 0), p2 = Point(x = 8, y = 4), verbose = true) // vertical line 3
     val env = Environment(Seq(line1, line2, line3))
     println("Complex line no block test 1 " + {if (line1.isVisible(line2, env)) "passes" else "FAILS!!!"})
     println("Complex line no block test 2 " + {if (line1.isVisible(line3, env)) "passes" else "FAILS!!!"})
   }
 
   def complicatedThreeLineSegmentNoVisibilityTest: Unit = {
-    val line1 = LineSegment(lid = 0, p1 = Point(x = 0, y = 0), p2 = Point(x = 10, y = 10), verbose = true) //vertical line
-    val line2 = LineSegment(lid = 1, p1 = Point(x = 5, y = 0), p2 = Point(x = 8, y = 3), verbose = true) // verticla line 2
-    val line3 = LineSegment(lid = 2, p1 = Point(x = 6, y = 0), p2 = Point(x = 8, y = 2.98), verbose = true) // vertical line 3
+    val v = false
+    val line1 = LineSegment(lid = 0, p1 = Point(x = 0, y = 0), p2 = Point(x = 10, y = 10), verbose = v) //vertical line
+    val line2 = LineSegment(lid = 1, p1 = Point(x = 5, y = 0), p2 = Point(x = 8, y = 3), verbose = v) // verticla line 2
+    val line3 = LineSegment(lid = 2, p1 = Point(x = 6, y = 0), p2 = Point(x = 8, y = 2.98), verbose = v) // vertical line 3
     val env = Environment(Seq(line1, line2, line3))
     println("Complex line block test 1 " + {if (!line1.isVisible(line3, env)) "passes" else "FAILS!!!"})
     println("Complex line block test 2 " + {if (!line3.isVisible(line1, env)) "passes" else "FAILS!!!"})
