@@ -146,19 +146,10 @@ case class LineSegment(lid: Int = -1, lname: String = "", p1: Point, p2: Point,
   }
 
   def contains(p: Point): Boolean = {
-    gfg
     val d1 = new PointAndTwoDVector(p1, p2).d
     val d2 = new PointAndTwoDVector(p, p2).d
-    if (d1.x == 0) { // TODO: write test case for this
-      if (d2.x == 0) {
-        (sameSign(d1.y, d2.y) & Math.abs(d1.y) > Math.abs(d2.y))
-      } else false
-    }
-    else {
-      val ratio  = d2.x / d1.x // TODO: do we need this ratio here???
-      val diff = relativeError(ratio * d1.y, d2.y)
-      (diff < NumericalIntersectionError && sameSign(d1.x, d2.x) && sameSign(d1.y, d2.y))
-    }
+    val diff = relativeError(d2.x  * d1.y, d2.y * d1.x)
+    (diff < NumericalIntersectionError && sameSign(d1.x, d2.x) && sameSign(d1.y, d2.y))
   }
 
   def intersectDistance(pointAndTwoDVector: PointAndTwoDVector): Option[Double] = {
@@ -169,7 +160,6 @@ case class LineSegment(lid: Int = -1, lname: String = "", p1: Point, p2: Point,
       println(s"Intersection point: $intersect")
     }
     if (intersect.map(contains(_)).getOrElse(false)) {
-      if (verbose) println("Wohoo")
       intersect.map(_.dist(pointAndTwoDVector.p))
     } else None
   }
