@@ -3,7 +3,14 @@ import java.lang.Math;
 object MathHelpers {
   val NumericalIntersectionError = 0.0001
   def relativeError(x: Double, y: Double): Double = {
-    Math.abs((x - y) * 2 / (x + y))
+    if (x + y == 0) 0
+    else Math.abs((x - y) * 2 / (x + y))
+  }
+  def error(x: Double, y: Double): Double = {
+    Math.abs(x - y)
+  }
+  def sameSign(x: Double, y: Double): Boolean = {
+    (x * y >= 0)
   }
 }
 import MathHelpers._
@@ -60,18 +67,22 @@ case class Point(pid: Int = -1, pname: String = "", x: Double, y: Double, overri
   }
   def intersect(pointAndTwoDVector: PointAndTwoDVector): Boolean = {
     // TODO: THIS desperatly needs to be fixed. !!
-    val dx = pointAndTwoDVector.p.x - x
-    val dy = pointAndTwoDVector.p.y - y
+    val dx = x - pointAndTwoDVector.p.x
+    val dy = y - pointAndTwoDVector.p.y
     if (verbose) {
       println("Relative intersection distance:")
       println(relativeError(dy * pointAndTwoDVector.d.x,  dx * pointAndTwoDVector.d.y))
+      println(s"Dx Dy $dx $dy")
+      println(pointAndTwoDVector.d)
     }
     if (dy * pointAndTwoDVector.d.x == dx * pointAndTwoDVector.d.y
-      && pointAndTwoDVector.d.x * dx > 0 // make sure that they are the same sign
-      && pointAndTwoDVector.d.y * dy > 0) // Double check this logic
+      && sameSign(pointAndTwoDVector.d.x, dx) // make sure that they are the same sign
+      && sameSign(pointAndTwoDVector.d.y, dy)) { // Double check this logic
       true
-    else
+    }
+    else {
       false
+    }
   }
   def intersectDistance(pointAndTwoDVector: PointAndTwoDVector): Option[Double] = {
     val insersects = intersect(pointAndTwoDVector)
@@ -116,7 +127,7 @@ case class PointAndTwoDVector(p: Point, d: TwoDVector) {
 case class TwoDVector(x: Double, y: Double)
 
 case class LineSegment(lid: Int = -1, lname: String = "", p1: Point, p2: Point,
-                       val numSamples: Int = 20, override val verbose: Boolean = false) extends Geo(lid, lname, verbose) {
+                       val numSamples: Int = 5, override val verbose: Boolean = false) extends Geo(lid, lname, verbose) {
   lazy val samples: Seq[Point] = pointSamples(numSamples)
   def isVisibleR(g: Geo, geos: Seq[Geo]): Boolean = {
     samples.map(_.isVisibleR(g, geos)).exists(_ == true)
@@ -135,17 +146,18 @@ case class LineSegment(lid: Int = -1, lname: String = "", p1: Point, p2: Point,
   }
 
   def contains(p: Point): Boolean = {
+    gfg
     val d1 = new PointAndTwoDVector(p1, p2).d
     val d2 = new PointAndTwoDVector(p, p2).d
-    if (d1.x == 0) {
+    if (d1.x == 0) { // TODO: write test case for this
       if (d2.x == 0) {
-        (d1.y > 0 & d2.y > 0 & d1.y > d2.y) || (d1.y < 0 & d2.y < 0 & d1.y < d2.y)
+        (sameSign(d1.y, d2.y) & Math.abs(d1.y) > Math.abs(d2.y))
       } else false
     }
     else {
-      val ratio  = d2.x / d1.x
+      val ratio  = d2.x / d1.x // TODO: do we need this ratio here???
       val diff = relativeError(ratio * d1.y, d2.y)
-      (diff < NumericalIntersectionError)
+      (diff < NumericalIntersectionError && sameSign(d1.x, d2.x) && sameSign(d1.y, d2.y))
     }
   }
 
@@ -157,6 +169,7 @@ case class LineSegment(lid: Int = -1, lname: String = "", p1: Point, p2: Point,
       println(s"Intersection point: $intersect")
     }
     if (intersect.map(contains(_)).getOrElse(false)) {
+      if (verbose) println("Wohoo")
       intersect.map(_.dist(pointAndTwoDVector.p))
     } else None
   }
@@ -166,8 +179,17 @@ case class LineSegment(lid: Int = -1, lname: String = "", p1: Point, p2: Point,
   }
 
   def pointSamples(numSamples: Int): Seq[Point] = {
-    (1 to numSamples).map(_ => randomPoint())
+    assert(numSamples >= 2)
+    (0 to numSamples - 1).map(x => stepSample(x * 1.0 / (numSamples - 1)))
+    // TODO: Could also consider adding some random samples with (1 to 10).map(_ => randomPoint())
   }
+
+  def stepSample(percentage: Double): Point = {
+    assert(percentage >= 0 && percentage <= 1)
+    val difference = p1.pathToPoint(p2)
+    Point(0, "", p1.x + percentage * difference.x, p1.y + percentage * difference.y, verbose)
+  }
+
   def randomPoint(): Point = {
     val difference = p1.pathToPoint(p2)
     val rand = Math.random()
