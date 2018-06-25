@@ -66,7 +66,9 @@ case class Point(pid: Int = -1, pname: String = "", x: Double, y: Double, overri
       println("Relative intersection distance:")
       println(relativeError(dy * pointAndTwoDVector.d.x,  dx * pointAndTwoDVector.d.y))
     }
-    if (dy * pointAndTwoDVector.d.x == dx * pointAndTwoDVector.d.y) // Double check this logic
+    if (dy * pointAndTwoDVector.d.x == dx * pointAndTwoDVector.d.y
+      && pointAndTwoDVector.d.x * dx > 0 // make sure that they are the same sign
+      && pointAndTwoDVector.d.y * dy > 0) // Double check this logic
       true
     else
       false
