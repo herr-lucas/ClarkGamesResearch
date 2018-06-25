@@ -204,6 +204,7 @@ case class Environment(items: Seq[Geo]) {
 
 object Start {
   import BasicTests._
+  import EnvironmentExtractor._
   def main(args: Array[String]): Unit = {
     simple3PointIntersectionTest
     simple3PointNoIntersectionTest

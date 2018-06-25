@@ -37,7 +37,7 @@ object BasicTests {
   }
 
   def simpleXMLLoadTest: Unit = {
-    new EnvironmentExtractor
+    EnvironmentExtractor.loadTests()
   }
 
   def simpleThreeLineSegmentNoVisibilityTest = {
