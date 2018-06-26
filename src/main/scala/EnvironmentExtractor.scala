@@ -18,7 +18,6 @@ object EnvironmentExtractor {
     println("Extracted three line system as xml: passes")
     println(extractLines(threeLineSystem))
     println("Extracted three line system into scala: see above.")
-
   }
 
   def extractLines(svg: xml.Elem): Seq[LineSegment] = {
