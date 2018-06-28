@@ -2,14 +2,20 @@ object Main {
   import BasicTests._
   import EnvironmentExtractor._
   def main(args: Array[String]): Unit = {
+    // Point tests
     simple3PointIntersectionTest
     simple3PointNoIntersectionTest
+    // Line tests
     simpleTwoLineSegmentIntersection
-    simpleXMLLoadTest
     simpleLineSegmentContainsTest
     simpleThreeLineSegmentVisibilityTest
     simpleThreeLineSegmentNoVisibilityTest
+    // Complex line tests
     complicatedThreeLineSegmentVisiblityTest
     complicatedThreeLineSegmentNoVisibilityTest
+    // Load tests
+    simpleXMLLoadTest
+    // Other tests
+    simpleInternalPointTest
   }
 }

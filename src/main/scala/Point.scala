@@ -31,6 +31,14 @@ case class Point(pid: Int = -1, pname: String = "", x: Double, y: Double, overri
     }
   }
 
+  def numIntersections(p: Point, geos: Seq[Geo]): Int = {
+    val distances: Seq[Double] = {
+      val pointAndVector = lineToPoint(p)
+      geos.flatMap(g => g.intersectDistance(pointAndVector))
+    }
+    distances.length
+  }
+
   def lineToPoint(point: Point): PointAndTwoDVector = {
     PointAndTwoDVector(this, pathToPoint(point))
   }
@@ -45,7 +53,6 @@ case class Point(pid: Int = -1, pname: String = "", x: Double, y: Double, overri
     TwoDVector(p.x - x, p.y - y)
   }
   def intersect(pointAndTwoDVector: PointAndTwoDVector): Boolean = {
-    // TODO: THIS desperatly needs to be fixed. !!
     val dx = x - pointAndTwoDVector.p.x
     val dy = y - pointAndTwoDVector.p.y
     if (verbose) {
