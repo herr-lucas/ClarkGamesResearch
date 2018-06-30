@@ -89,7 +89,7 @@ object BasicTests {
     val pointInside2 = Point(pid = 5, "", 3, 3)
     val lineInside = LineSegment(lid = 6, p1 = Point(x = 0, y = 0), p2 = Point(x = 4, y = 4), verbose = v) //vertical line
     val env = Environment(Seq(boxLine1, boxLine2, boxLine3, boxLine4, pointInside1, lineInside))
-    // TODO: below unneccesary until we want to move to non-square environments, but why would we do that?
+    // TODO: below unneccesary until we want to move to non-regions environments, but why would we do that?
     // println(s"Point inside 1? ${if (env.isInside(pointInside1)) "passes" else "FAILS!!!"}")
     // println(s"Point inside 2? ${if (env.isInside(pointInside2)) "passes" else "FAILS!!!"}")
 
