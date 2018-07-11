@@ -13,10 +13,14 @@ case class LineSegment(lid: Int = -1, lname: String = "", p1: Point, p2: Point,
   }
 
   def intersect(pointAndTwoDVector: PointAndTwoDVector): Boolean = {
+    intersectPoint(pointAndTwoDVector).getOrElse(false)
+  }
+
+  def intersectPoint(pointAndTwoDVector: PointAndTwoDVector): Option[Point] = {
     val normalFormOther = pointAndTwoDVector.toLineSegmentNormalForm
     val normalForm = new PointAndTwoDVector(p1, p2).toLineSegmentNormalForm
     val intersect = LineSegmentNormalForm.lineIntersection(normalForm, normalFormOther)
-    intersect.map(contains(_)).getOrElse(false)
+    intersect.flatMap(x => if (contains(x)) Some(x) else None)
   }
 
   def contains(p: Point): Boolean = {
