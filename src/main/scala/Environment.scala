@@ -2,6 +2,7 @@
 // TODO: Need to run checks with borders not just items
 case class Environment(items: Seq[Geo], border: Border) {
   //TODO: need to make sure assertion below works
+  println(items.map(_.id))
   assert(items.map(_.id).distinct.size == items.size)
   def filter(dontInclude: Seq[Geo]): Seq[Geo] = { // TODO: should probably take ids not Geo's
     items.filterNot(i => dontInclude.map(_.id).contains(i.id))

@@ -18,6 +18,7 @@ object EnvironmentExtractor {
     println("Extracted three line system as xml: passes")
     println(extractLines(threeLineSystem))
     println("Extracted three line system into scala: see above.")
+    loadCallOfDutyMap()
   }
 
   def extractLines(svg: xml.Elem): Seq[LineSegment] = {
@@ -27,13 +28,18 @@ object EnvironmentExtractor {
       {
         ctr += 1
         LineSegment(
-          lid = ctr,
-          lname = "",
           Point(x = (l \ "@x1").toString.toDouble, y = (l \ "@x2").toString.toDouble),
-          Point(x = (l \ "@x2").toString.toDouble, y = (l \ "@y2").toString.toDouble)
+          Point(x = (l \ "@x2").toString.toDouble, y = (l \ "@y2").toString.toDouble),
+          lid = Some(ctr)
         )
       }
     }
+  }
+
+  def loadCallOfDutyMap(): Seq[LineSegment] = {
+    val xml = XML.loadFile("codvacant.svg")
+    println(xml \\ "g" \\ "path")
+    Seq.empty
   }
 }
 

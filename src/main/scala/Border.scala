@@ -1,19 +1,20 @@
 object Border {
   def apply(x1: Double, x2: Double, y1: Double, y2: Double): Border = {
-    val y1BoxLine = LineSegment(-1, "", Point(x = x1, y = y1), Point(x = x2, y = y1)) // TODO use options instead of -1 and ""
-    val y2BoxLine = LineSegment(-1, "", Point(x = x1, y = y2), Point(x = x2, y = y2))
-    val x1BoxLine = LineSegment(-1, "", Point(x = x1, y = y1), Point(x = x1, y = y2))
-    val x2BoxLine = LineSegment(-1, "", Point(x = x2, y = y1), Point(x = x2, y = y2))
+    val y1BoxLine = LineSegment(Point(x = x1, y = y1), Point(x = x2, y = y1))
+    val y2BoxLine = LineSegment(Point(x = x1, y = y2), Point(x = x2, y = y2))
+    val x1BoxLine = LineSegment(Point(x = x1, y = y1), Point(x = x1, y = y2))
+    val x2BoxLine = LineSegment(Point(x = x2, y = y1), Point(x = x2, y = y2))
     this(y1BoxLine, y2BoxLine, x1BoxLine, x2BoxLine)
   }
 }
-case class Border(y1BoxLine: LineSegment, y2BoxLine: LineSegment, x1BoxLine: LineSegment, x2BoxLine: LineSegment) extends Geo(id = -1, name= "", verbose = false) {
+case class Border(y1BoxLine: LineSegment, y2BoxLine: LineSegment, x1BoxLine: LineSegment, x2BoxLine: LineSegment, bid: Option[Int] = None, bname: Option[String] = None)
+  extends Geo(id = bid, name = bname, verbose = false) {
+  val lines: Seq[LineSegment] = Seq(y1BoxLine, y2BoxLine, x1BoxLine, x2BoxLine)
   val points = lines.flatMap(l => l.samples)
   def getCoordinates: (Point, Point) = {
     (Point(x = y1BoxLine.p1.x, y = y1BoxLine.p1.y), Point(x = x2BoxLine.p2.x, y = x2BoxLine.p2.y))
   }
 
-  val lines: Seq[LineSegment] = Seq(y1BoxLine, y2BoxLine, x1BoxLine, x2BoxLine)
 
   def isLineVisible(l: LineSegment, e: Environment): Boolean = {
     points.exists {

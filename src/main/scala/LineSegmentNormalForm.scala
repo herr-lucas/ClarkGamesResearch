@@ -12,7 +12,7 @@ object LineSegmentNormalForm {
     else {
       val x = (B2 * C1 - B1 * C2) / delta
       val y = (A1 * C2 - A2 * C1) / delta
-      Some(Point(0, "", x, y))
+      Some(Point(x, y))
     }
   }
 }
