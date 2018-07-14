@@ -18,7 +18,10 @@ object EnvironmentExtractor {
     println("Extracted three line system as xml: passes")
     println(extractLines(threeLineSystem))
     println("Extracted three line system into scala: see above.")
+    println("Loading call of duty map")
     loadCallOfDutyMap()
+    println("Loading simple box env")
+    loadSimpleBoxEnv()
   }
 
   def extractLines(svg: xml.Elem): Seq[LineSegment] = {
@@ -28,7 +31,7 @@ object EnvironmentExtractor {
       {
         ctr += 1
         LineSegment(
-          Point(x = (l \ "@x1").toString.toDouble, y = (l \ "@x2").toString.toDouble),
+          Point(x = (l \ "@x1").toString.toDouble, y = (l \ "@y1").toString.toDouble),
           Point(x = (l \ "@x2").toString.toDouble, y = (l \ "@y2").toString.toDouble),
           lid = Some(ctr)
         )
@@ -36,8 +39,46 @@ object EnvironmentExtractor {
     }
   }
 
+  def extractLinesFromPaths(xml: xml.Elem): Seq[LineSegment] = {
+    val paths = xml \\ "path"
+    paths.map { p =>
+      (p \ "@d").toString()
+    }.map { s: String =>
+      val items = s.split(" ")
+      val xyVals = items match {
+        case List("m", _*, "z") => items.slice(1, items.length - 1) ++ items(1)
+        case List("m", _*) => items.slice(1, items.length)
+      }
+
+      val vals = xyVals.map { s: String =>
+        s.split(",") match {
+          case List(x: String, y: String) => (x.toDouble, y.toDouble)
+        }
+      }
+      var currentPointsX = 0
+      var currentPointsY = 0
+      var pts: Seq[Point] = Seq.empty
+      vals.foreach { p: (Double, Double) =>
+        currentPointsX += p._1
+        currentPointsY += p._2
+        pts = pts ++ Point(currentPointsX, currentPointsY)
+      }
+    }
+  }
+
+  def extractLinesFromPath() = {
+
+  }
+
+  def loadSimpleBoxEnv(): Seq[LineSegment] = {
+    val xml = XML.loadFile("environments/simpleBox.svg")
+    val lines = extractLines(xml)
+    println("Simple box lines " + lines)
+    lines
+  }
+
   def loadCallOfDutyMap(): Seq[LineSegment] = {
-    val xml = XML.loadFile("codvacant.svg")
+    val xml = XML.loadFile("environments/codvacant.svg")
     println(xml \\ "g" \\ "path")
     Seq.empty
   }

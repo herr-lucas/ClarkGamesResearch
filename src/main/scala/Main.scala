@@ -17,5 +17,11 @@ object Main {
     simpleXMLLoadTest
     // Other tests
     simpleInternalPointTest
+    // Simple box env
+    testSimpleBoxEnv
+    // Env partition
+    partitionEnvironment
+    // rendering
+    renderEnvironment
   }
 }

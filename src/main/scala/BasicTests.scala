@@ -1,5 +1,5 @@
 object BasicTests {
-  val outerContainer = Border(0, 10, 0, 10)
+  val outerContainer = Border(0, 100, 0, 100)
   val numSamples = 10
   def simple3PointIntersectionTest: Unit = {
     val v = false
@@ -97,12 +97,38 @@ object BasicTests {
 
   }
 
-  def environmentPartition: Unit = {
+  def partitionEnvironment: Unit = {
     val v = false
     val pointInside1 = Point(5, 5)
     val pointInside2 = Point(3, 3)
     val env = Environment(items = Seq(pointInside1, pointInside2), border = outerContainer)
     val partition = env.partitionEnvironment(10, numSamples)
     println("Partition: " + partition)
+  }
+
+  def testSimpleBoxEnv: Unit = {
+    val lines = EnvironmentExtractor.loadSimpleBoxEnv()
+    val point1 = Point(10, 10)
+    val point2 = Point(25, 10)
+    val point3 = Point(40, 10)
+    val point4 = Point(10, 70)
+    val point5 = Point(25, 70)
+    val point6 = Point(40, 70)
+    val env = Environment(lines :+ point1 :+ point2 :+ point3 :+ point4 :+ point5 :+ point6, border = outerContainer)
+    println("Test simple box env 1 " + {if (!point1.isVisible(point6, env)) "passes" else "FAILS!!!"})
+    println("Test simple box env 2 " + {if (point1.isVisible(point4, env)) "passes" else "FAILS!!!"})
+  }
+
+  def renderEnvironment: Unit = {
+    val point1 = Point(10, 10)
+    val point2 = Point(25, 10)
+    val point3 = Point(40, 10)
+    val point4 = Point(10, 70)
+    val point5 = Point(25, 70)
+    val point6 = Point(40, 70)
+    val lines = EnvironmentExtractor.loadSimpleBoxEnv()
+    val env = Environment(lines :+ point1 :+ point2 :+ point3 :+ point4 :+ point5 :+ point6, border = outerContainer)
+    EnvironmentRenderer.render(env, "environments/tests/simpleBox.svg")
+    println("Check environments/tests/simpleBox.svg to see if render worked!")
   }
 }
