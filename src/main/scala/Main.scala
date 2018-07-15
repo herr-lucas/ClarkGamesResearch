@@ -23,5 +23,7 @@ object Main {
     partitionEnvironment
     // rendering
     renderEnvironment
+    // load paths
+    loadPaths
   }
 }

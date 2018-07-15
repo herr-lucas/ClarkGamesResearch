@@ -131,4 +131,9 @@ object BasicTests {
     EnvironmentRenderer.render(env, "environments/tests/simpleBox.svg")
     println("Check environments/tests/simpleBox.svg to see if render worked!")
   }
+
+  def loadPaths: Unit = {
+    EnvironmentExtractor.loadCallOfDutyMap()
+    println("Printed the paths in the call of duty environment")
+  }
 }
