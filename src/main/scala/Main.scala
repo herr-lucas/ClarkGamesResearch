@@ -25,5 +25,7 @@ object Main {
     renderEnvironment
     // load paths
     loadPaths
+    // simple visibility plot
+    testVisibilitySimpleBoxEnv
   }
 }

@@ -19,7 +19,7 @@ object EnvironmentExtractor {
     println(extractLines(threeLineSystem))
     println("Extracted three line system into scala: see above.")
     println("Loading call of duty map")
-    loadCallOfDutyMap()
+    loadAndRenderCallOfDutyMap()
     println("Loading simple box env")
     loadSimpleBoxEnv()
   }
@@ -45,37 +45,24 @@ object EnvironmentExtractor {
       (p \ "@d").toString()
     }
     pathsStrings.map { s: String =>
-      val items = s.split(" ")
-      val xyVals: Seq[String] = items match {
-        case Array("m", _*) if items.endsWith("z") => items.takeRight(items.length - 1).take(items.length - 2) :+ items(1)
-        case Array("m", _*) => items.takeRight(items.length - 1)
-        case _ => { println("Path didn't start with m!!!"); Seq.empty }
-      }
-      val vals: Seq[(Double, Double)] = xyVals.map { s: String =>
+      val coords = s.split(" ")
+      val filteredCoords = coords.filterNot(i => i == "m" || i == "l" | i == "c")
+      val points: Seq[Point] = filteredCoords.map { s: String =>
         s.split( ",") match {
-          case Array(x: String, y: String) => (x.toDouble, y.toDouble)
-          case other => { println("Something went wrong with " + s); (0.0, 0.0) }
+          case Array(x: String, y: String) => Point(x.toDouble, y.toDouble)
+          case Array("z") => Point(0.0, 0.0)
         }
       }
-      var currentPointsX: Double = 0
-      var currentPointsY: Double = 0
-      var pts: Seq[TwoDVector] = Seq.empty // Replace this name with directions
-      vals.foreach { p: (Double, Double) =>
-        currentPointsX += p._1
-        currentPointsY += p._2
-        pts = pts :+ TwoDVector(currentPointsX, currentPointsY)
-      }
-      extractLinesFromPath(pts)
+      extractLinesFromPath(points)
     }
   }
 
-  def extractLinesFromPath(pts: Seq[TwoDVector]): Seq[LineSegment] = {
+  def extractLinesFromPath(pts: Seq[Point]): Seq[LineSegment] = {
     var currentPoint = Point(pts(0).x, pts(0).y)
-    var lineSegments = Seq.empty
-    var j = 1;
-    for (j <- 1 until pts.length) {
-      val nextPoint = Point(currentPoint.x + pts(j).x, currentPoint.y + pts(j).y)
-      lineSegments :+ LineSegment(currentPoint.copy(), nextPoint.copy())
+    var lineSegments: Seq[LineSegment] = Seq.empty
+    var j = 0;
+    for (j <- 0 until pts.length - 1) {
+      lineSegments = lineSegments :+ LineSegment(pts(j), pts(j + 1))
     }
     lineSegments
   }
@@ -87,10 +74,10 @@ object EnvironmentExtractor {
     lines
   }
 
-  def loadCallOfDutyMap(): Seq[Seq[LineSegment]] = {
+  def loadAndRenderCallOfDutyMap(): Seq[LineSegment] = {
     val xml = XML.loadFile("environments/codvacant.svg")
-    val paths = extractLinesFromPaths(xml)
-    println(paths)
+    val paths = extractLinesFromPaths(xml).flatten
+    EnvironmentRenderer.render(Environment(paths, border = Border(-1000, 1000, -1000, 1000)), fout = "environments/tests/cod_out.svg")
     paths
   }
 }

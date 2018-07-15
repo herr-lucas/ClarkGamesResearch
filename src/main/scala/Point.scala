@@ -1,6 +1,6 @@
 import MathHelpers.{relativeError, sameSign}
 
-case class Point(x: Double, y: Double, override val verbose: Boolean = false, pid: Option[Int] = None, pname: Option[String] = None) extends Geo(pid, pname, verbose) {
+case class Point(x: Double, y: Double, override val verbose: Boolean = false, pid: Option[Int] = None, pname: Option[String] = None, override val specialColor: Option[String] = None) extends Geo(pid, pname, verbose ) {
   def isVisibleR(g: Geo, geos: Seq[Geo]): Boolean = {
     g match {
       case p: Point => {

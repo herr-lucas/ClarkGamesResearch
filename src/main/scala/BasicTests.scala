@@ -103,7 +103,7 @@ object BasicTests {
     val pointInside2 = Point(3, 3)
     val env = Environment(items = Seq(pointInside1, pointInside2), border = outerContainer)
     val partition = env.partitionEnvironment(10, numSamples)
-    println("Partition: " + partition)
+    println("Test Partition: " + partition)
   }
 
   def testSimpleBoxEnv: Unit = {
@@ -132,8 +132,22 @@ object BasicTests {
     println("Check environments/tests/simpleBox.svg to see if render worked!")
   }
 
+  def testVisibilitySimpleBoxEnv = {
+    val lines = EnvironmentExtractor.loadSimpleBoxEnv()
+    val pointOfInterest = Point(10, 10, specialColor = Some("yellow"))
+    val scatterPoints =  (0 to 100 by 5).flatMap(x => (0 to 100 by 5).map(y => (x, y))).map {
+      case (x: Int, y: Int) => {
+        val color = if (Point(x ,y).isVisible(pointOfInterest, Environment(lines, outerContainer))) "blue" else "red"
+          Point(x, y, specialColor = Some(color))
+      }
+    }
+    val env = Environment(lines ++ scatterPoints :+ pointOfInterest, border = outerContainer)
+    EnvironmentRenderer.render(env, fout = "environments/tests/boxVisibility10-10.svg")
+  }
+
   def loadPaths: Unit = {
-    EnvironmentExtractor.loadCallOfDutyMap()
+    val map = EnvironmentExtractor.loadAndRenderCallOfDutyMap()
+    println(map)
     println("Printed the paths in the call of duty environment")
   }
 }
