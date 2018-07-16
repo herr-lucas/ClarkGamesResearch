@@ -3,9 +3,9 @@ object BasicTests {
   val numSamples = 10
   def simple3PointIntersectionTest: Unit = {
     val v = false
-    val p1 = Point(0, 0, verbose = v)
-    val p2 = Point(0, 5, verbose = v)
-    val p3 = Point(0, 10, verbose = v)
+    val p1 = Point(0, 0, pid = Some(0), verbose = v)
+    val p2 = Point(0, 5, pid = Some(1), verbose = v)
+    val p3 = Point(0, 10, pid = Some(2), verbose = v)
     val e = new Environment(Seq(p1, p2, p3), outerContainer)
     println("Simple 3 point intersection test: " + {
       if (p1.isVisible(p3, e) == false) "passes" else "FAILS!!!"}
@@ -134,10 +134,10 @@ object BasicTests {
 
   def testVisibilitySimpleBoxEnv = {
     val lines = EnvironmentExtractor.loadSimpleBoxEnv()
-    val pointOfInterest = Point(10, 10, specialColor = Some("yellow"))
-    val scatterPoints =  (0 to 100 by 5).flatMap(x => (0 to 100 by 5).map(y => (x, y))).map {
+    val pointOfInterest = Point(10, 10, specialColor = Some("yellow"), verbose = false)
+    val scatterPoints =  (0 to 100 by 2).flatMap(x => (0 to 100 by 2).map(y => (x, y))).map {
       case (x: Int, y: Int) => {
-        val color = if (Point(x ,y).isVisible(pointOfInterest, Environment(lines, outerContainer))) "blue" else "red"
+        val color = if (Point(x ,y, verbose = true).isVisible(pointOfInterest, Environment(lines, outerContainer))) "blue" else "red"
           Point(x, y, specialColor = Some(color))
       }
     }

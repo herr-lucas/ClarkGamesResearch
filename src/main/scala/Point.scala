@@ -1,4 +1,5 @@
-import MathHelpers.{relativeError, sameSign}
+import MathHelpers.{relativeError, sameSign, closeEnough}
+import scala.util.Try
 
 case class Point(x: Double, y: Double, override val verbose: Boolean = false, pid: Option[Int] = None, pname: Option[String] = None, override val specialColor: Option[String] = None) extends Geo(pid, pname, verbose ) {
   def isVisibleR(g: Geo, geos: Seq[Geo]): Boolean = {
@@ -12,15 +13,11 @@ case class Point(x: Double, y: Double, override val verbose: Boolean = false, pi
           if (verbose) println(s"Point And Vector $pointAndVector")
           geos.flatMap(g => g.intersectDistance(pointAndVector).map(x => (g, x)))
         }
-        if (verbose) println(s"intersect distances ${geos_and_distances.map(_._2)}")
         val dist_to_p = dist(p)
+        if (verbose) println(s"dist $dist_to_p, $this $p min intersection ${Try(geos_and_distances.minBy(_._2)).toOption.getOrElse("no intersection")}")
+
         if (geos_and_distances.isEmpty) true
         else if (geos_and_distances.map(_._2).min < dist_to_p) {
-          if (verbose) {
-            println("Blocked by: " + geos_and_distances
-              .filter(_._2 < dist_to_p)
-            )
-          }
           false
         }
         else true
@@ -42,9 +39,11 @@ case class Point(x: Double, y: Double, override val verbose: Boolean = false, pi
   def lineToPoint(point: Point): PointAndTwoDVector = {
     PointAndTwoDVector(this, pathToPoint(point))
   }
+
   def isVisible(g: Geo, e: Environment): Boolean = {
     isVisibleR(g, e.filter(Seq(g, this)))
   }
+
   def dist(p: Point): Double = {
     Math.sqrt(Math.pow(p.x - x, 2) + Math.pow((p.y - y), 2))
   }
@@ -52,6 +51,7 @@ case class Point(x: Double, y: Double, override val verbose: Boolean = false, pi
   def pathToPoint(p: Point): TwoDVector = {
     TwoDVector(p.x - x, p.y - y)
   }
+
   def intersect(pointAndTwoDVector: PointAndTwoDVector): Boolean = {
     val dx = x - pointAndTwoDVector.p.x
     val dy = y - pointAndTwoDVector.p.y
@@ -61,7 +61,7 @@ case class Point(x: Double, y: Double, override val verbose: Boolean = false, pi
       println(s"Dx Dy $dx $dy")
       println(pointAndTwoDVector.d)
     }
-    if (dy * pointAndTwoDVector.d.x == dx * pointAndTwoDVector.d.y
+    if (closeEnough(dy * pointAndTwoDVector.d.x, dx * pointAndTwoDVector.d.y)
       && sameSign(pointAndTwoDVector.d.x, dx) // make sure that they are the same sign
       && sameSign(pointAndTwoDVector.d.y, dy)) { // Double check this logic
       true
@@ -76,5 +76,5 @@ case class Point(x: Double, y: Double, override val verbose: Boolean = false, pi
     else None
   }
 
-  override def toString: String = if (id == -1) s"($x, $y)" else s"Id $id Name $name ($x, $y)"
+  override def toString: String = if (!id.isDefined) s"($x, $y)" else s"Id $id Name $name ($x, $y)"
 }

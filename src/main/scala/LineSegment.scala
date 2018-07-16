@@ -20,26 +20,21 @@ case class LineSegment( p1: Point, p2: Point, val numSamples: Int = 5, override 
     val normalFormOther = pointAndTwoDVector.toLineSegmentNormalForm
     val normalForm = new PointAndTwoDVector(p1, p2).toLineSegmentNormalForm
     val intersect = LineSegmentNormalForm.lineIntersection(normalForm, normalFormOther)
-    intersect.flatMap(x => if (contains(x)) Some(x) else None)
+    val correctDirection: Boolean = intersect.map(p => {
+      val path = pointAndTwoDVector.p.pathToPoint(p)
+      sameSign(path.x, pointAndTwoDVector.d.x) && sameSign(path.y, pointAndTwoDVector.d.y)
+    }).getOrElse(false)
+    intersect.flatMap(x => if (contains(x) && correctDirection) Some(x) else None)
   }
 
   def contains(p: Point): Boolean = {
     val d1 = new PointAndTwoDVector(p1, p2).d
     val d2 = new PointAndTwoDVector(p, p2).d
-    val diff = relativeError(d2.x  * d1.y, d2.y * d1.x)
-    (diff < NumericalIntersectionError && sameSign(d1.x, d2.x) && sameSign(d1.y, d2.y))
+    (closeEnough(d2.x  * d1.y, d2.y * d1.x)) && sameSign(d1.x, d2.x) && sameSign(d1.y, d2.y)
   }
 
   def intersectDistance(pointAndTwoDVector: PointAndTwoDVector): Option[Double] = {
-    val normalFormOther = pointAndTwoDVector.toLineSegmentNormalForm
-    val normalForm = new PointAndTwoDVector(p1, p2).toLineSegmentNormalForm
-    val intersect = LineSegmentNormalForm.lineIntersection(normalForm, normalFormOther)
-    if (verbose) {
-      println(s"Intersection point: $intersect")
-    }
-    if (intersect.map(contains(_)).getOrElse(false)) {
-      intersect.map(_.dist(pointAndTwoDVector.p))
-    } else None
+   intersectPoint(pointAndTwoDVector).map(_.dist(pointAndTwoDVector.p))
   }
 
   def length(): Double = {
@@ -64,5 +59,5 @@ case class LineSegment( p1: Point, p2: Point, val numSamples: Int = 5, override 
     Point(p1.x + rand * difference.x, p1.y + rand * difference.y, verbose)
   }
 
-  override def toString: String = if (this.id == -1) p1 + " to " + p2 else s"id $lid, name $lname $p1 to $p2"
+  override def toString: String = if (!id.isDefined) p1 + " to " + p2 else s"id $lid, name $lname $p1 to $p2"
 }

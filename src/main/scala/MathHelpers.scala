@@ -1,5 +1,9 @@
 object MathHelpers {
   val NumericalIntersectionError = 0.0001
+  def closeEnough(x: Double, y: Double): Boolean = {
+    relativeError(x, y) < NumericalIntersectionError
+  }
+
   def relativeError(x: Double, y: Double): Double = {
     if (x + y == 0) 0
     else Math.abs((x - y) * 2 / (x + y))
