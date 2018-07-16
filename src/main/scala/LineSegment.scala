@@ -29,8 +29,9 @@ case class LineSegment( p1: Point, p2: Point, val numSamples: Int = 5, override 
 
   def contains(p: Point): Boolean = {
     val d1 = new PointAndTwoDVector(p1, p2).d
+    val center = Point(0.5 * (p1.x + p2.x), 0.5 * (p1.y + p2.y))
     val d2 = new PointAndTwoDVector(p, p2).d
-    (closeEnough(d2.x  * d1.y, d2.y * d1.x)) && sameSign(d1.x, d2.x) && sameSign(d1.y, d2.y)
+    (p.dist(center) <= 0.5 * p1.dist(p2) && closeEnough(d2.x  * d1.y, d2.y * d1.x)) && sameSign(d1.x, d2.x) && sameSign(d1.y, d2.y)
   }
 
   def intersectDistance(pointAndTwoDVector: PointAndTwoDVector): Option[Double] = {

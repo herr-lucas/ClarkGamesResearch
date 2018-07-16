@@ -1,3 +1,4 @@
+import scala.util.Try
 object Border {
   def apply(x1: Double, x2: Double, y1: Double, y2: Double): Border = {
     val y1BoxLine = LineSegment(Point(x = x1, y = y1), Point(x = x2, y = y1))
@@ -24,6 +25,10 @@ case class Border(y1BoxLine: LineSegment, y2BoxLine: LineSegment, x1BoxLine: Lin
 
   override def intersect(pointAndTwoDVector: PointAndTwoDVector): Boolean = {
     intersectDistance(pointAndTwoDVector).isDefined
+  }
+
+  override def intersectPoint(pointAndTwoDVector: PointAndTwoDVector): Option[Point] = {
+    Try(lines.map(l => l.intersectPoint(pointAndTwoDVector)).flatten.minBy(pintersect => pointAndTwoDVector.p.dist(pintersect))).toOption
   }
 
   override def intersectDistance(pointAndTwoDVector: PointAndTwoDVector): Option[Double] = {

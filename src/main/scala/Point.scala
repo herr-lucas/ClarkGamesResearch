@@ -14,7 +14,8 @@ case class Point(x: Double, y: Double, override val verbose: Boolean = false, pi
           geos.flatMap(g => g.intersectDistance(pointAndVector).map(x => (g, x)))
         }
         val dist_to_p = dist(p)
-        if (verbose) println(s"dist $dist_to_p, $this $p min intersection ${Try(geos_and_distances.minBy(_._2)).toOption.getOrElse("no intersection")}")
+        if (verbose) println(s"dist $dist_to_p, $this " +
+          s"$p min intersection ${Try(geos_and_distances.minBy(_._2)).toOption.map { case (g: Geo, dist: Double) => (g.intersectPoint(lineToPoint(p)), dist) }.getOrElse("no intersection")}")
 
         if (geos_and_distances.isEmpty) true
         else if (geos_and_distances.map(_._2).min < dist_to_p) {
@@ -70,9 +71,14 @@ case class Point(x: Double, y: Double, override val verbose: Boolean = false, pi
       false
     }
   }
+
+  def intersectPoint(pointAndTwoDVector: PointAndTwoDVector): Option[Point] = {
+    if (intersect(pointAndTwoDVector)) Some(this) else None
+  }
+
   def intersectDistance(pointAndTwoDVector: PointAndTwoDVector): Option[Double] = {
-    val insersects = intersect(pointAndTwoDVector)
-    if (insersects) Some(dist(pointAndTwoDVector.p))
+    val intersects = intersect(pointAndTwoDVector)
+    if (intersects) Some(dist(pointAndTwoDVector.p))
     else None
   }
 
