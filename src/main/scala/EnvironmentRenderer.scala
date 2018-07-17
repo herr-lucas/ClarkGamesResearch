@@ -16,7 +16,7 @@ object EnvironmentRenderer {
             val y = b.x1BoxLine.p1.y
             val width = b.x2BoxLine.p1.x - x
             val height = b.x1BoxLine.p2.y - b.x1BoxLine.p1.y
-            s"""<rect x=${x} y=${y} width="${width}" height="${height}" style="fill:rgb(0,0,255);stroke-width:3;stroke:rgb(0,0,0)" />"""
+            s"""<rect x="${x}" y="${y}" width="${width}" height="${height}" style="fill:rgb(0,0,255);stroke-width:3;stroke:rgb(0,0,0)" />"""
           }
         }
       }.mkString("\n") + "</svg>"

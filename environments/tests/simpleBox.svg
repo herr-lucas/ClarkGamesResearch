@@ -11,4 +11,5 @@
 <circle cx="40.0" cy="10.0" r="0.5" stroke="black" stroke-width="3" fill="red" />
 <circle cx="10.0" cy="70.0" r="0.5" stroke="black" stroke-width="3" fill="red" />
 <circle cx="25.0" cy="70.0" r="0.5" stroke="black" stroke-width="3" fill="red" />
-<circle cx="40.0" cy="70.0" r="0.5" stroke="black" stroke-width="3" fill="red" /></svg>
+<circle cx="40.0" cy="70.0" r="0.5" stroke="black" stroke-width="3" fill="red" />
+<rect x="0.0" y="0.0" width="100.0" height="100.0" style="fill:rgb(0,0,255);stroke-width:3;stroke:rgb(0,0,0)" /></svg>

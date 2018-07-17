@@ -273,4 +273,5 @@
 <line x1="338.80545" y1="800.77184" x2="21.25984" y2="0.0" style="stroke:rgb(255,0,0);stroke-width:2"/>
 <line x1="21.25984" y1="0.0" x2="0.0" y2="-81.49607" style="stroke:rgb(255,0,0);stroke-width:2"/>
 <line x1="0.0" y1="-81.49607" x2="-21.25984" y2="0.0" style="stroke:rgb(255,0,0);stroke-width:2"/>
-<line x1="-21.25984" y1="0.0" x2="0.0" y2="0.0" style="stroke:rgb(255,0,0);stroke-width:2"/></svg>
+<line x1="-21.25984" y1="0.0" x2="0.0" y2="0.0" style="stroke:rgb(255,0,0);stroke-width:2"/>
+<rect x="-1000.0" y="-1000.0" width="2000.0" height="2000.0" style="fill:rgb(0,0,255);stroke-width:3;stroke:rgb(0,0,0)" /></svg>

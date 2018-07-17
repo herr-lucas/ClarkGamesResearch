@@ -26,6 +26,7 @@ object Main {
     // load paths
     loadPaths
     // simple visibility plot
-    testVisibilitySimpleBoxEnv
+    val fromPoints = Seq(Point(0,0), Point(10, 10), Point(10, 40), Point(40, 10), Point(76, 76), Point(90, 76))
+    fromPoints.foreach { p => testVisibilitySimpleBoxEnv(p) }
   }
 }

@@ -1,14 +1,14 @@
 // TODO: IDS for geos should be in here not in the objects themselves.
-// TODO: Need to run checks with borders not just items
-case class Environment(items: Seq[Geo], border: Border) {
-  //TODO: need to make sure assertion below works
-  assert(items.map(_.id).filter(_ != None).distinct.size == items.map(_.id).filter(_ != None).size)
+case class Environment(items: Seq[Geo]) {
+  assert(items.map(_.id).flatten.distinct.size == items.map(_.id).flatten.size)
   def filter(dontInclude: Seq[Geo]): Seq[Geo] = { // TODO: should probably take ids not Geo's
-    items.filterNot(i => dontInclude.map(_.id).contains(i.id)).filterNot(_ == None)
+    val dontIncludeIds = dontInclude.flatMap(_.id)
+    val withIDs = items.flatMap(_.id)
+    val ids = withIDs.filterNot(id => dontIncludeIds.contains(id))
+    items.filter(g => g.id.map(ids.contains(_)).getOrElse(false))
   }
   /* TODO: below but unneccesary unless non-square regions?
   def isInside(p: Point): Boolean = {
-    val verticalPInfinity = Point(-1, "", p.x, Double.MaxValue)
     (p.numIntersections(verticalPInfinity, ONLY include items that makeup outer box) % 2 == 1)
   }*/
 
@@ -28,8 +28,8 @@ case class Environment(items: Seq[Geo], border: Border) {
     val (p1, p2) = b.getCoordinates
     boxSamples(p1.x, p2.x, p1.y, p2.y, numSamples)
   }*/
-
-  def partitionEnvironment(sliceSize: Int, numSamples: Int): Seq[EnvironmentPartition] = {
+  
+  def partitionEnvironment(sliceSize: Int, numSamples: Int, border: Border): Seq[EnvironmentPartition] = {
     val (bottomLeft: Point, topRight: Point) = border.getCoordinates
     val dx = topRight.x - bottomLeft.x
     val dy = topRight.y - bottomLeft.y

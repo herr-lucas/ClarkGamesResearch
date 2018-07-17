@@ -70,14 +70,13 @@ object EnvironmentExtractor {
   def loadSimpleBoxEnv(): Seq[LineSegment] = {
     val xml = XML.loadFile("environments/simpleBox.svg")
     val lines = extractLines(xml)
-    println("Simple box lines " + lines)
     lines
   }
 
   def loadAndRenderCallOfDutyMap(): Seq[LineSegment] = {
     val xml = XML.loadFile("environments/codvacant.svg")
     val paths = extractLinesFromPaths(xml).flatten
-    EnvironmentRenderer.render(Environment(paths, border = Border(-1000, 1000, -1000, 1000)), fout = "environments/tests/cod_out.svg")
+    EnvironmentRenderer.render(Environment(paths :+ Border(-1000, 1000, -1000, 1000)), fout = "environments/tests/cod_out.svg")
     paths
   }
 }

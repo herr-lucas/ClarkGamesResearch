@@ -16,10 +16,9 @@ case class Border(y1BoxLine: LineSegment, y2BoxLine: LineSegment, x1BoxLine: Lin
     (Point(x = y1BoxLine.p1.x, y = y1BoxLine.p1.y), Point(x = x2BoxLine.p2.x, y = x2BoxLine.p2.y))
   }
 
-
-  def isLineVisible(l: LineSegment, e: Environment): Boolean = {
+  def isLineVisible(l: LineSegment, geos: Seq[Geo]): Boolean = {
     points.exists {
-      p: Point => l.isVisible(p, e)
+      p: Point => l.isVisibleR(p, geos)
     }
   }
 
@@ -33,13 +32,14 @@ case class Border(y1BoxLine: LineSegment, y2BoxLine: LineSegment, x1BoxLine: Lin
 
   override def intersectDistance(pointAndTwoDVector: PointAndTwoDVector): Option[Double] = {
     val distances = lines.map(l => l.intersectPoint(pointAndTwoDVector)).flatten.map(pintersect => pointAndTwoDVector.p.dist(pintersect))
-    Option(distances.filter(_ == Double.MaxValue).min) // TODO: Should remove usages of Double.MaxValue
+    Try(distances.min).toOption
   }
 
   override def isVisible(g: Geo, env: Environment): Boolean = {
     g match {
-      case l: LineSegment => isLineVisible(l, env)
-      case b: Border => b.lines.map(l => isLineVisible(l, env)).exists(_ == true)
+      case p: Point => points.map(pBorder => pBorder.isVisibleR(p, env.filter(Seq(this, g)))).exists(_ == true)
+      case l: LineSegment => isLineVisible(l, env.filter(Seq(g, this)))
+      case b: Border => b.lines.map(l => isLineVisible(l, env.filter(Seq(g, this)))).exists(_ == true)
     }
   }
 }
