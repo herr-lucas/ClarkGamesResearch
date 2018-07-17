@@ -1,7 +1,7 @@
 import MathHelpers._
 
 case class LineSegment( p1: Point, p2: Point, val numSamples: Int = 5, override val verbose: Boolean = false,
-                        lid: Option[Int] = None, lname: Option[String] = None) extends Geo(lid, lname, verbose) {
+                        lname: Option[String] = None) extends Geo(lname, verbose) {
   lazy val samples: Seq[Point] = pointSamples(numSamples)
   def isVisibleR(g: Geo, geos: Seq[Geo]): Boolean = {
     samples.map(_.isVisibleR(g, geos)).exists(_ == true)
@@ -60,5 +60,5 @@ case class LineSegment( p1: Point, p2: Point, val numSamples: Int = 5, override 
     Point(p1.x + rand * difference.x, p1.y + rand * difference.y, verbose)
   }
 
-  override def toString: String = if (!id.isDefined) p1 + " to " + p2 else s"id $lid, name $lname $p1 to $p2"
+  override def toString: String = if (!name.isDefined) p1 + " to " + p2 else s"name $lname $p1 to $p2"
 }

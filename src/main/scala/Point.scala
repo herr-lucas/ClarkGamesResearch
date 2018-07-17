@@ -1,7 +1,7 @@
 import MathHelpers.{relativeError, sameSign, closeEnough}
 import scala.util.Try
 
-case class Point(x: Double, y: Double, override val verbose: Boolean = false, pid: Option[Int] = None, pname: Option[String] = None, override val specialColor: Option[String] = None) extends Geo(pid, pname, verbose ) {
+case class Point(x: Double, y: Double, override val verbose: Boolean = false, pname: Option[String] = None, override val specialColor: Option[String] = None) extends Geo(pname, verbose ) {
   def isVisibleR(g: Geo, geos: Seq[Geo]): Boolean = {
     g match {
       case p: Point => {
@@ -14,9 +14,12 @@ case class Point(x: Double, y: Double, override val verbose: Boolean = false, pi
           geos.flatMap(g => g.intersectDistance(pointAndVector).map(x => (g, x)))
         }
         val dist_to_p = dist(p)
-        if (verbose) println(s"dist $dist_to_p, $this " +
-          s"$p min intersection ${Try(geos_and_distances.minBy(_._2)).toOption.map { case (g: Geo, dist: Double) => (g.intersectPoint(lineToPoint(p)), dist) }.getOrElse("no intersection")}")
-
+        if (verbose)
+          println(s"dist $dist_to_p, $this " +
+            s"$p min intersection ${Try(geos_and_distances.minBy(_._2)).toOption.map {
+              case (g: Geo, dist: Double) => (g.intersectPoint(lineToPoint(p)), dist)
+            }.getOrElse("no intersection")}"
+          )
         if (geos_and_distances.isEmpty) true
         else if (geos_and_distances.map(_._2).min < dist_to_p) {
           false
@@ -82,5 +85,5 @@ case class Point(x: Double, y: Double, override val verbose: Boolean = false, pi
     else None
   }
 
-  override def toString: String = if (!id.isDefined) s"($x, $y)" else s"Id $id Name $name ($x, $y)"
+  override def toString: String = if (!name.isDefined) s"($x, $y)" else s"Name $name ($x, $y)"
 }

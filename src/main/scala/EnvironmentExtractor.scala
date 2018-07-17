@@ -29,11 +29,9 @@ object EnvironmentExtractor {
     var ctr = 0
     lines.map { l =>
       {
-        ctr += 1
         LineSegment(
           Point(x = (l \ "@x1").toString.toDouble, y = (l \ "@y1").toString.toDouble),
-          Point(x = (l \ "@x2").toString.toDouble, y = (l \ "@y2").toString.toDouble),
-          lid = Some(ctr)
+          Point(x = (l \ "@x2").toString.toDouble, y = (l \ "@y2").toString.toDouble)
         )
       }
     }

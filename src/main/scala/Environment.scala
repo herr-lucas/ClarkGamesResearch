@@ -1,11 +1,7 @@
 // TODO: IDS for geos should be in here not in the objects themselves.
 case class Environment(items: Seq[Geo]) {
-  assert(items.map(_.id).flatten.distinct.size == items.map(_.id).flatten.size)
   def filter(dontInclude: Seq[Geo]): Seq[Geo] = { // TODO: should probably take ids not Geo's
-    val dontIncludeIds = dontInclude.flatMap(_.id)
-    val withIDs = items.flatMap(_.id)
-    val ids = withIDs.filterNot(id => dontIncludeIds.contains(id))
-    items.filter(g => g.id.map(ids.contains(_)).getOrElse(false))
+    items.toSeq.filterNot { case g: Geo => dontInclude.contains(g) }
   }
   /* TODO: below but unneccesary unless non-square regions?
   def isInside(p: Point): Boolean = {
@@ -28,7 +24,7 @@ case class Environment(items: Seq[Geo]) {
     val (p1, p2) = b.getCoordinates
     boxSamples(p1.x, p2.x, p1.y, p2.y, numSamples)
   }*/
-  
+
   def partitionEnvironment(sliceSize: Int, numSamples: Int, border: Border): Seq[EnvironmentPartition] = {
     val (bottomLeft: Point, topRight: Point) = border.getCoordinates
     val dx = topRight.x - bottomLeft.x

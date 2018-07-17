@@ -9,7 +9,7 @@ object Border {
   }
 }
 case class Border(y1BoxLine: LineSegment, y2BoxLine: LineSegment, x1BoxLine: LineSegment, x2BoxLine: LineSegment, bid: Option[Int] = None, bname: Option[String] = None)
-  extends Geo(id = bid, name = bname, verbose = false) {
+  extends Geo(name = bname, verbose = false) {
   val lines: Seq[LineSegment] = Seq(y1BoxLine, y2BoxLine, x1BoxLine, x2BoxLine)
   val points = lines.flatMap(l => l.samples)
   def getCoordinates: (Point, Point) = {

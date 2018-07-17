@@ -1,4 +1,5 @@
-abstract class Geo(val id: Option[Int], val name: Option[String], val verbose: Boolean, val specialColor: Option[String] = None) {
+// TODO: Do we even need name?
+abstract class Geo(val name: Option[String], val verbose: Boolean, val specialColor: Option[String] = None) {
   def isVisible(g: Geo, e: Environment): Boolean
   def intersect(pointAndTwoDVector: PointAndTwoDVector): Boolean
   def intersectDistance(pointAndTwoDVector: PointAndTwoDVector): Option[Double]
