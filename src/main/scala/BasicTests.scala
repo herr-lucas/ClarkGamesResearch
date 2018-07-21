@@ -1,5 +1,4 @@
 object BasicTests {
-  // TODO: add ids to Borders?
   val numSamples = 10
   def simple3PointIntersectionTest: Unit = {
     val v = false
@@ -13,7 +12,7 @@ object BasicTests {
   }
 
   def simple3PointNoIntersectionTest: Unit = {
-    val v = true
+    val v = false
     val p1 = Point(0.1, 0.1, verbose = v)
     val p2 = Point(1, 5, verbose = v)
     val p3 = Point(0.1, 10, verbose = v)
@@ -129,8 +128,15 @@ object BasicTests {
     val point6 = Point(40, 70)
     val lines = EnvironmentExtractor.loadSimpleBoxEnv()
     val env = Environment(lines :+ point1 :+ point2 :+ point3 :+ point4 :+ point5 :+ point6 :+ Border(0, 100, 0, 100))
-    EnvironmentRenderer.render(env, "environments/tests/simpleBox.svg")
+    EnvironmentRenderer.render(env, "environments/tests/simpleBox.svg", frameWidth = 100, frameHeight = 100)
     println("Check environments/tests/simpleBox.svg to see if render worked!")
+  }
+
+  def loadAndRenderSimplePath() = {
+    val lines = EnvironmentExtractor.loadSimplePathEnv()
+    val env = Environment(lines)
+    println(s"Simple path direction $env")
+    EnvironmentRenderer.render(env, "environments/tests/simple_cod_path_test.svg", frameWidth = 100, frameHeight = 100, verbose = false)
   }
 
   def testVisibilitySimpleBoxEnv(pFrom: Point) = {
@@ -140,17 +146,36 @@ object BasicTests {
     val incrementSize = 4
     val scatterPoints =  (0 to 100 by incrementSize).flatMap(x => (0 to 100 by incrementSize).map(y => (x, y))).map {
       case (x: Int, y: Int) => {
-        val color = if (Point(x ,y, verbose = true).isVisible(pointOfInterest, Environment(lines :+ Border(0, 100, 0, 100)))) "blue" else "red"
+        val color = if (Point(x ,y, verbose = false).isVisible(pointOfInterest, Environment(lines :+ Border(0, 100, 0, 100)))) "blue" else "red"
           Point(x, y, specialColor = Some(color))
       }
     }
     val env = Environment(lines ++ scatterPoints :+ pointOfInterest :+ Border(0, 100, 0, 100))
-    EnvironmentRenderer.render(env, fout = s"environments/tests/boxVisibility$fromX-$fromY.svg")
+    EnvironmentRenderer.render(env, fout = s"environments/tests/boxVisibility$fromX-$fromY.svg", frameWidth = 100, frameHeight = 100)
   }
 
-  def loadPaths: Unit = {
-    val map = EnvironmentExtractor.loadAndRenderCallOfDutyMap()
-    println("COD paths " + map)
-    println("Printed the paths in the call of duty environment")
+  def loadCallofDutyMap: Unit = {
+    val map = EnvironmentExtractor.loadCallOfDutyMap()
+    println("Loaded COD paths " + map)
+  }
+  def renderCallOfDutyMap: Unit = {
+    val map = EnvironmentExtractor.loadCallOfDutyMap()
+    EnvironmentRenderer.render(Environment(map), "environments/tests/cod_out.svg", frameWidth = 1000, frameHeight = 1000)
+    println("Rendered COD paths")
+  }
+
+  def testCallOfDutyEnvironment(pFrom: Point) = {
+    val (fromX: Double, fromY: Double) = (pFrom.x, pFrom.y)
+    val lines = EnvironmentExtractor.loadCallOfDutyMap()
+    val pointOfInterest = Point(fromX, fromY, specialColor = Some("yellow"), verbose = false)
+    val incrementSize = 10
+    val scatterPoints =  (0 to 1000 by incrementSize).flatMap(x => (0 to 1000 by incrementSize).map(y => (x, y))).map {
+      case (x: Int, y: Int) => {
+        val color = if (Point(x ,y, verbose = false).isVisible(pointOfInterest, Environment(lines))) "blue" else "red"
+        Point(x, y, specialColor = Some(color))
+      }
+    }
+    val env = Environment(lines ++ scatterPoints :+ pointOfInterest)
+    EnvironmentRenderer.render(env, fout = s"environments/tests/callOfDutyVisibility$fromX-$fromY.svg", frameWidth = 1000, frameHeight = 1000)
   }
 }

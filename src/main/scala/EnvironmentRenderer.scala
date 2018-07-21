@@ -1,9 +1,10 @@
 import java.io._
 
 object EnvironmentRenderer {
-  def render(environment: Environment, fout: String): Unit = {
+  def render(environment: Environment, fout: String, frameWidth: Int, frameHeight: Int, verbose: Boolean = false): Unit = {
     val output = {
-      "<svg height=\"210\" width=\"500\">" + environment.items.map { item: Geo =>
+      s"""<svg height=\"${frameWidth}\" width=\"$frameHeight\">""" + environment.items.map { item: Geo =>
+        if (verbose) println(s"rendering $item")
         item match {
           case l: LineSegment => {
             s"""<line x1="${l.p1.x}" y1="${l.p1.y}" x2="${l.p2.x}" y2="${l.p2.y}" style="stroke:rgb(255,0,0);stroke-width:2"/>"""
@@ -25,5 +26,9 @@ object EnvironmentRenderer {
     val bw = new BufferedWriter(new FileWriter(file))
     bw.write(output)
     bw.close()
+  }
+
+  def renderCallOfDutyMap(lines: Seq[LineSegment]): Unit = {
+    EnvironmentRenderer.render(Environment(lines), frameWidth = 1000, frameHeight = 1000, fout = "environments/tests/cod_out.svg")
   }
 }

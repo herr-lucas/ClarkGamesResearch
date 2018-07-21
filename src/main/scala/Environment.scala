@@ -1,7 +1,7 @@
 // TODO: IDS for geos should be in here not in the objects themselves.
 case class Environment(items: Seq[Geo]) {
   def filter(dontInclude: Seq[Geo]): Seq[Geo] = { // TODO: should probably take ids not Geo's
-    items.toSeq.filterNot { case g: Geo => dontInclude.contains(g) }
+    items.filterNot { case g: Geo => dontInclude.contains(g) }
   }
   /* TODO: below but unneccesary unless non-square regions?
   def isInside(p: Point): Boolean = {
