@@ -13,6 +13,7 @@ case class Point(x: Double, y: Double, override val verbose: Boolean = false, pn
           if (verbose) println(s"Point And Vector $pointAndVector")
           geos.flatMap(g => g.intersectDistance(pointAndVector).map(x => (g, x)))
         }
+        if (verbose) println("Distances" + geos_and_distances.map(_._2))
         val dist_to_p = dist(p)
         if (verbose)
           println(s"dist $dist_to_p, $this " +
@@ -45,7 +46,7 @@ case class Point(x: Double, y: Double, override val verbose: Boolean = false, pn
   }
 
   def isVisible(g: Geo, e: Environment): Boolean = {
-    isVisibleR(g, e.filter(Seq(g, this)))
+   isVisibleR(g, e.filter(Seq(g, this)))
   }
 
   def dist(p: Point): Double = {

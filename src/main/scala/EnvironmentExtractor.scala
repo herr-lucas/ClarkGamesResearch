@@ -45,7 +45,7 @@ object EnvironmentExtractor {
     val extractedPaths = pathsStrings.map { s: String =>
       val coords = s.split(" ")
       val filteredCoords = coords.filterNot(i => i == "m" || i == "l" | i == "c")
-      val doesReturn = filteredCoords.endsWith("z")
+      val doesReturn = filteredCoords(filteredCoords.length - 1) == "z"
       val finalCoords = if (doesReturn) filteredCoords.take(filteredCoords.length - 1) else filteredCoords
       val points: (Seq[TwoDVector]) = filteredCoords.map { s: String =>
         val pos = s.split( ",")
@@ -57,7 +57,6 @@ object EnvironmentExtractor {
       val lines = extractLinesFromPath(points, doesReturn)
       lines
     }
-    println(extractedPaths)
     extractedPaths
   }
 
@@ -70,7 +69,9 @@ object EnvironmentExtractor {
       lineSegments = lineSegments :+ LineSegment(currentPoint, nextPoint)
       currentPoint = nextPoint
     }
-    if (doesReturn) lineSegments :+ LineSegment(currentPoint, Point(pts(0).x, pts(0).y))
+    if (doesReturn) {
+      lineSegments = lineSegments :+ LineSegment(currentPoint, Point(pts(0).x, pts(0).y))
+    }
     lineSegments
   }
 

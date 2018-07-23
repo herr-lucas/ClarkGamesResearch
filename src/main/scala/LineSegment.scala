@@ -20,18 +20,29 @@ case class LineSegment( p1: Point, p2: Point, val numSamples: Int = 5, override 
     val normalFormOther = pointAndTwoDVector.toLineSegmentNormalForm
     val normalForm = new PointAndTwoDVector(p1, p2).toLineSegmentNormalForm
     val intersect = LineSegmentNormalForm.lineIntersection(normalForm, normalFormOther)
+    if (verbose) println("Is intersect " + intersect)
     val correctDirection: Boolean = intersect.map(p => {
       val path = pointAndTwoDVector.p.pathToPoint(p)
       sameSign(path.x, pointAndTwoDVector.d.x) && sameSign(path.y, pointAndTwoDVector.d.y)
     }).getOrElse(false)
-    intersect.flatMap(x => if (contains(x) && correctDirection) Some(x) else None)
+    if (verbose) println("Correct direction " + correctDirection)
+    if (verbose) println("Contains " + intersect.map((contains(_))))
+    val result = intersect.flatMap(x => if (contains(x) && correctDirection) Some(x) else None)
+    if (verbose) println(s"intersectResult $result")
+    result
   }
 
   def contains(p: Point): Boolean = {
     val d1 = new PointAndTwoDVector(p1, p2).d
     val center = Point(0.5 * (p1.x + p2.x), 0.5 * (p1.y + p2.y))
     val d2 = new PointAndTwoDVector(p, p2).d
-    (p.dist(center) <= 0.5 * p1.dist(p2) && closeEnough(d2.x  * d1.y, d2.y * d1.x)) && sameSign(d1.x, d2.x) && sameSign(d1.y, d2.y)
+    val distClose = p.dist(center) <= 0.5 * p1.dist(p2)
+    val sameVec = closeEnough(d2.x  * d1.y, d2.y * d1.x)
+    if (verbose) println(s"d1 $d1 d2 $d2 sameVec  ${relativeError(d2.x  * d1.y, d2.y * d1.x)}")
+    val signX = sameSign(d1.x, d2.x)
+    val signY = sameSign(d1.y, d2.y)
+    if (verbose) println(s"distClose $distClose sameVec $sameVec signX $signX signY $signY")
+    (distClose && sameVec && signX && signY)
   }
 
   def intersectDistance(pointAndTwoDVector: PointAndTwoDVector): Option[Double] = {

@@ -154,6 +154,17 @@ object BasicTests {
     EnvironmentRenderer.render(env, fout = s"environments/tests/boxVisibility$fromX-$fromY.svg", frameWidth = 100, frameHeight = 100)
   }
 
+  def temporaryCODDebuggingTests() = {
+    val pfrom = Point(100, 100, verbose = true)
+    val cands = Seq(Point(100, 390, verbose = true), Point(100, 400, verbose = true))// (0 to 100).map(i => Point(100, i * 10))
+    val lines = EnvironmentExtractor.loadCallOfDutyMap()
+    cands.foreach {
+      cand: Point => println(s"""$cand ${
+        pfrom.isVisible(cand, Environment(Seq(LineSegment(Point(147.46686000000025, 258.6458500000001), Point(30.537730000000252, 258.6458500000001), verbose = true))))
+      }""")
+    } // Environment(lines)
+  }
+
   def loadCallofDutyMap: Unit = {
     val map = EnvironmentExtractor.loadCallOfDutyMap()
     println("Loaded COD paths " + map)

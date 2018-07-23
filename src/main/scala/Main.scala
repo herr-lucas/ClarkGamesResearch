@@ -29,10 +29,12 @@ object Main {
     val fromPoints = Seq(Point(0,0), Point(10, 10), Point(10, 40), Point(40, 10), Point(76, 76), Point(90, 76))
     fromPoints.foreach { p => testVisibilitySimpleBoxEnv(p) }
     // loadAndRender CallofDutyMap
-    //loadCallofDutyMap
-    //renderCallOfDutyMap
+    loadCallofDutyMap
+    renderCallOfDutyMap
     // test points call of Duty map
     val fromPointsCOD = Seq(Point (100, 100), Point(700, 100), Point(100, 700), Point(500, 500))
     fromPointsCOD.foreach { p => testCallOfDutyEnvironment(p) }
+    // debugging weird behavior
+    temporaryCODDebuggingTests
   }
 }
