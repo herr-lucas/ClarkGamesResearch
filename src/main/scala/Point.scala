@@ -86,5 +86,5 @@ case class Point(x: Double, y: Double, override val verbose: Boolean = false, pn
     else None
   }
 
-  override def toString: String = if (!name.isDefined) s"($x, $y)" else s"Name $name ($x, $y)"
+  override def toString: String = if (!name.isDefined) s"($x, $y, color $specialColor)" else s"Name $name ($x, $y, color $specialColor)"
 }

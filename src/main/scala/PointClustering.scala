@@ -1,4 +1,5 @@
 import scala.util.Try
+import scala.collection.mutable.{Seq => MutableSeq}
 
 case class VisibilitySet(var visibilities: Seq[Visibility]) {
   def distance(v: Visibility): Double = {
@@ -36,16 +37,17 @@ object PointClustering {
 
   def cluster(points: Set[Point], e: Environment, size: Int): EnvironmentSegmentation = {
     var visibility: Set[Visibility] = determineVisibility(points, e).visibility
-    var clusters: Seq[VisibilitySet] = Seq.empty
+    var clusters: MutableSeq[VisibilitySet] = MutableSeq.empty
     (0 until size).foreach { i =>
       val (taken: Seq[Visibility], left: Set[Visibility]) = PointClustering.take(visibility, 1)
       visibility = left
-      clusters :+ VisibilitySet(taken)
+      clusters = clusters :+ VisibilitySet(taken)
     }
     assert(clusters.size == size)
     visibility.foreach { v =>
       val minGroup = clusters.minBy(_.distance(v))
-      minGroup.visibilities :+ v
+      val index = clusters.indexOf(minGroup)
+      clusters(index) = VisibilitySet(minGroup.visibilities :+ v)
     }
     EnvironmentSegmentation(clusters, e)
   }

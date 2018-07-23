@@ -229,7 +229,7 @@ object BasicTests {
   def environmentSegmentationCODTest() = {
     val lines = EnvironmentExtractor.loadCallOfDutyMap()
     val env = Environment(lines)
-    val segmentation = PointClustering.cluster(generatePoints(1000, 1000, 100).toSet, env, size = 5)
+    val segmentation = PointClustering.cluster(generatePoints(1000, 1000, 25).toSet, env, size = 5)
     val colors = Seq("black", "green", "blue", "orange", "yellow")
     val coloredPoints = segmentation.partition.zip(colors).map {
       case (vis, color: String) => vis.visibilities.map(v => Point(v.p.x, v.p.y, specialColor = Some(color)))

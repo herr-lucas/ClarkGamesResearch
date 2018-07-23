@@ -9,6 +9,7 @@ object EnvironmentRenderer {
           case l: LineSegment => {
             s"""<line x1="${l.p1.x}" y1="${l.p1.y}" x2="${l.p2.x}" y2="${l.p2.y}" style="stroke:rgb(255,0,0);stroke-width:2"/>"""
           }
+           // TODO: change the radius based on number of circles
           case p: Point => {
             s"""<circle cx="${p.x}" cy="${p.y}" r="0.5" stroke="${p.specialColor.getOrElse("black")}" stroke-width="3" fill="${p.specialColor.getOrElse("black")}"/>"""
           }
