@@ -32,9 +32,11 @@ object Main {
     loadCallofDutyMap
     renderCallOfDutyMap
     // test points call of Duty map
-    val fromPointsCOD = Seq(Point (100, 100), Point(700, 100), Point(100, 700), Point(500, 500))
+    val fromPointsCOD = Seq(Point(100, 100), Point(700, 100), Point(100, 700), Point(500, 500))
     fromPointsCOD.foreach { p => testCallOfDutyEnvironment(p) }
     // debugging weird behavior
-    temporaryCODDebuggingTests
+    // temporaryCODDebuggingTests
+    // environment segmentation
+    environmentSegmentationCODTest
   }
 }
