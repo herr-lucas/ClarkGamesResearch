@@ -151,7 +151,7 @@ object BasicTests {
     val point6 = Point(40, 70)
     val lines = EnvironmentExtractor.loadSimpleBoxEnv()
     val env = Environment(lines :+ point1 :+ point2 :+ point3 :+ point4 :+ point5 :+ point6 :+ Border(0, 100, 0, 100))
-    EnvironmentRenderer.render(env, "environments/tests/simpleBox.svg", frameWidth = 100, frameHeight = 100)
+    EnvironmentRenderer.render(env, "environments/tests/simpleBox.svg", pointsAcross = Some(3), frameWidth = 100, frameHeight = 100)
     println("Check environments/tests/simpleBox.svg to see if render worked!")
   }
 
@@ -159,7 +159,7 @@ object BasicTests {
     val lines = EnvironmentExtractor.loadSimplePathEnv()
     val env = Environment(lines)
     println(s"Simple path direction $env")
-    EnvironmentRenderer.render(env, "environments/tests/simple_cod_path_test.svg", frameWidth = 100, frameHeight = 100, verbose = false)
+    EnvironmentRenderer.render(env, "environments/tests/simple_cod_path_test.svg", pointsAcross = None, frameWidth = 100, frameHeight = 100, verbose = false)
   }
 
   def testVisibilitySimpleBoxEnv(pFrom: Point) = {
@@ -174,7 +174,7 @@ object BasicTests {
       }
     }
     val env = Environment(lines ++ scatterPoints :+ pointOfInterest :+ Border(0, 100, 0, 100))
-    EnvironmentRenderer.render(env, fout = s"environments/tests/boxVisibility$fromX-$fromY.svg", frameWidth = 100, frameHeight = 100)
+    EnvironmentRenderer.render(env, fout = s"environments/tests/boxVisibility$fromX-$fromY.svg", pointsAcross = Some(100 / incrementSize), frameWidth = 100, frameHeight = 100)
   }
 
   def temporaryCODDebuggingTests() = {
@@ -198,7 +198,7 @@ object BasicTests {
 
   def renderCallOfDutyMap: Unit = {
     val map = EnvironmentExtractor.loadCallOfDutyMap()
-    EnvironmentRenderer.render(Environment(map), "environments/tests/cod_out.svg", frameWidth = 1000, frameHeight = 1000)
+    EnvironmentRenderer.render(Environment(map), "environments/tests/cod_out.svg", pointsAcross = None, frameWidth = 1000, frameHeight = 1000)
     println("Rendered COD paths")
   }
 
@@ -223,17 +223,80 @@ object BasicTests {
       }
     }
     val env = Environment(lines ++ scatterPoints :+ pointOfInterest)
-    EnvironmentRenderer.render(env, fout = s"environments/tests/callOfDutyVisibility$fromX-$fromY.svg", frameWidth = 1000, frameHeight = 1000)
+    EnvironmentRenderer.render(env, fout = s"environments/tests/callOfDutyVisibility$fromX-$fromY.svg", pointsAcross = Some(1000 / incrementSize), frameWidth = 1000, frameHeight = 1000)
   }
 
-  def environmentSegmentationCODTest() = {
-    val lines = EnvironmentExtractor.loadCallOfDutyMap()
+  def basicVisibilityTest(verbose: Boolean = false): Unit = {
+    val print = verbose
+    val points = Seq( Point(0, 0), Point(10, 0), Point(0, 10), Point(10, 10))
+    val objects = Seq( LineSegment(Point(-10, 5), Point(15, 5)) )
+    val env = Environment(objects)
+    val pointClustering = PointClustering.determineVisibility( points.toSet, env )
+    if (print) {
+      println("Basic visiblity test")
+      println("What (0, 0) can see " + pointClustering.visibility.filter(_.p == Point(0, 0)))
+      println("What (10, 0) can see " + pointClustering.visibility.filter(_.p == Point(10, 0)))
+      println("What (0, 10) can see " + pointClustering.visibility.filter(_.p == Point(0, 10)))
+      println("What (10, 10) can see " + pointClustering.visibility.filter(_.p == Point(10, 10)))
+    }
+  }
+
+  def basicSegmentationTest(verbose: Boolean = false): Unit = {
+    val print = verbose
+    val points = Seq(
+      Point(0, 0), Point(5, 0), Point(10, 0),
+      Point(0, 10), Point(5, 10), Point(10, 10)
+    )
+    val objects = Seq(LineSegment(Point(-10, 5), Point(15, 5)) )
+    val env = Environment(objects)
+    if (print) {
+      println("Basic segmentation test")
+    }
+    val pointClustering = PointClustering.cluster(points.toSet, env, size = 3, verbose = verbose)
+    if (print) println("Partition " + pointClustering.partition.map(_.visibilities.map(_.p)))
+  }
+
+  def distanceTest(verbose: Boolean = false) = {
+    val points = Seq(
+      Point(0, 0), Point(5, 0), Point(10, 0),
+      Point(0, 10), Point(5, 10), Point(10, 10)
+    )
+    val objects = Seq(LineSegment(Point(-10, 5), Point(15, 5)))
+    val env = Environment(objects)
+    val visibilities = PointClustering.determineVisibility(points.toSet, env).visibility
+    val visSet1 = VisibilitySet(visibilities.filter(x => x.p == Point(0, 0) || x.p == Point(5, 0)).toSeq)
+    val visSet2 = VisibilitySet(visibilities.filter(x => x.p == Point(0, 10) || x.p == Point(5, 10)).toSeq)
+    val visx0y0 = visibilities.filter(x => x.p == Point(0, 0)).toSeq(0)
+    val visx0y10 = visibilities.filter(x => x.p == Point(0, 10)).toSeq(0)
+    val dist1 = visx0y0.distance(visx0y10)
+    val distSet = visSet1.setDistance(visSet2)
+    if (verbose) {
+      println("Distance between visibilities of 0-0 and 0-10: " + dist1)
+      println("Distances between sets: " + distSet)
+    }
+  }
+
+  def environmentSegmentationTest(verbose: Boolean = false) = {
+    val size = 3
+    val lines = EnvironmentExtractor.loadSimpleBoxEnv()
     val env = Environment(lines)
-    val segmentation = PointClustering.cluster(generatePoints(1000, 1000, 25).toSet, env, size = 5)
-    val colors = Seq("black", "green", "blue", "orange", "yellow")
+    val segmentation = PointClustering.cluster(generatePoints(100, 100, 10).toSet, env, size = size, verbose = verbose)
+    val colors = PointClustering.takeColors(size)
     val coloredPoints = segmentation.partition.zip(colors).map {
       case (vis, color: String) => vis.visibilities.map(v => Point(v.p.x, v.p.y, specialColor = Some(color)))
     }.flatten
-    EnvironmentRenderer.render(Environment(lines ++ coloredPoints), fout = s"environments/tests/callOfDutySegmented", frameWidth = 1000, frameHeight = 1000)
+    EnvironmentRenderer.render(Environment(lines ++ coloredPoints), fout = s"environments/tests/boxEnvironmentSegmented.svg", pointsAcross = Some(10), frameWidth = 100, frameHeight = 100)
+  }
+
+  def environmentSegmentationCODTest(verbose: Boolean = false) = {
+    val size = 5
+    val lines = EnvironmentExtractor.loadCallOfDutyMap()
+    val env = Environment(lines)
+    val segmentation = PointClustering.cluster(generatePoints(1000, 1000, 100).toSet, env, size = size, verbose = false)
+    val colors = PointClustering.takeColors(size)
+    val coloredPoints = segmentation.partition.zip(colors).map {
+      case (vis, color: String) => vis.visibilities.map(v => Point(v.p.x, v.p.y, specialColor = Some(color)))
+    }.flatten
+    EnvironmentRenderer.render(Environment(lines ++ coloredPoints), fout = s"environments/tests/callOfDutySegmented.svg", pointsAcross = Some(10), frameWidth = 1000, frameHeight = 1000)
   }
 }

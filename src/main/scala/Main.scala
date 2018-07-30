@@ -37,6 +37,10 @@ object Main {
     // debugging weird behavior
     // temporaryCODDebuggingTests
     // environment segmentation
-    environmentSegmentationCODTest
+    distanceTest()
+    basicVisibilityTest()
+    basicSegmentationTest()
+    environmentSegmentationTest(verbose = true)
+    environmentSegmentationCODTest()
   }
 }

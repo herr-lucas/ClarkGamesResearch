@@ -1,7 +1,7 @@
 import java.io._
 
 object EnvironmentRenderer {
-  def render(environment: Environment, fout: String, frameWidth: Int, frameHeight: Int, verbose: Boolean = false): Unit = {
+  def render(environment: Environment, fout: String, frameWidth: Int, frameHeight: Int, pointsAcross: Option[Int], verbose: Boolean = false): Unit = {
     val output = {
       s"""<svg height=\"${frameWidth}\" width=\"$frameHeight\">""" + environment.items.map { item: Geo =>
         if (verbose) println(s"rendering $item")
@@ -9,9 +9,9 @@ object EnvironmentRenderer {
           case l: LineSegment => {
             s"""<line x1="${l.p1.x}" y1="${l.p1.y}" x2="${l.p2.x}" y2="${l.p2.y}" style="stroke:rgb(255,0,0);stroke-width:2"/>"""
           }
-           // TODO: change the radius based on number of circles
           case p: Point => {
-            s"""<circle cx="${p.x}" cy="${p.y}" r="0.5" stroke="${p.specialColor.getOrElse("black")}" stroke-width="3" fill="${p.specialColor.getOrElse("black")}"/>"""
+            val circleRadius = frameHeight / (pointsAcross.get * 10.0) // need circleradius * pointsAcross = frameheigtht / 10
+            s"""<circle cx="${p.x}" cy="${p.y}" r="$circleRadius" stroke="${p.specialColor.getOrElse("black")}" stroke-width="3" fill="${p.specialColor.getOrElse("black")}"/>"""
           }
           case b: Border => {
             val x = b.x1BoxLine.p1.x
@@ -30,6 +30,6 @@ object EnvironmentRenderer {
   }
 
   def renderCallOfDutyMap(lines: Seq[LineSegment]): Unit = {
-    EnvironmentRenderer.render(Environment(lines), frameWidth = 1000, frameHeight = 1000, fout = "environments/tests/cod_out.svg")
+    EnvironmentRenderer.render(Environment(lines), frameWidth = 1000, frameHeight = 1000, pointsAcross = None, fout = "environments/tests/cod_out.svg")
   }
 }

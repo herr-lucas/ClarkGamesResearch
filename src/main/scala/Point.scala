@@ -87,4 +87,9 @@ case class Point(x: Double, y: Double, override val verbose: Boolean = false, pn
   }
 
   override def toString: String = if (!name.isDefined) s"($x, $y, color $specialColor)" else s"Name $name ($x, $y, color $specialColor)"
+
+  override def equals(obj: scala.Any): Boolean = obj match {
+    case p: Point => this.x == p.x && this.y == p.y
+    case _ => super.equals(obj)
+  }
 }
