@@ -40,7 +40,7 @@ object Main {
     distanceTest()
     basicVisibilityTest()
     basicSegmentationTest()
-    environmentSegmentationTest(verbose = true)
+    environmentSegmentationTest()
     environmentSegmentationCODTest()
   }
 }

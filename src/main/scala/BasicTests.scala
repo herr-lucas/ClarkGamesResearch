@@ -289,14 +289,14 @@ object BasicTests {
   }
 
   def environmentSegmentationCODTest(verbose: Boolean = false) = {
-    val size = 5
+    val size = 10
     val lines = EnvironmentExtractor.loadCallOfDutyMap()
     val env = Environment(lines)
-    val segmentation = PointClustering.cluster(generatePoints(1000, 1000, 100).toSet, env, size = size, verbose = false)
+    val segmentation = PointClustering.cluster(generatePoints(1000, 1000, 100).toSet, env, size = size, verbose = verbose)
     val colors = PointClustering.takeColors(size)
     val coloredPoints = segmentation.partition.zip(colors).map {
       case (vis, color: String) => vis.visibilities.map(v => Point(v.p.x, v.p.y, specialColor = Some(color)))
     }.flatten
-    EnvironmentRenderer.render(Environment(lines ++ coloredPoints), fout = s"environments/tests/callOfDutySegmented.svg", pointsAcross = Some(10), frameWidth = 1000, frameHeight = 1000)
+    EnvironmentRenderer.render(Environment(lines ++ coloredPoints), fout = s"environments/tests/callOfDutySegmented-percentile-dist-$size.svg", pointsAcross = Some(10), frameWidth = 1000, frameHeight = 1000)
   }
 }
