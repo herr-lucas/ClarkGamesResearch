@@ -69,9 +69,14 @@ object PointClustering {
     PointClustering(vis, environment)
   }
 
-  def cluster(points: Set[Point], e: Environment, size: Int, verbose: Boolean = false): EnvironmentSegmentation = {
+  def cluster(visibility: Set[Visibility], e: Environment, size: Int, verbose: Boolean = false): EnvironmentSegmentation = {
+    val colors = takeColors(size)
+    var (remaining, clusters) = initialCluster(visibility, size)
+    clusterPostInitialization(remaining, clusters, e, verbose)
+  }
 
-    visibility.foreach { v =>
+  def clusterPostInitialization(remaining: Set[Visibility], clusters: MutableSeq[VisibilitySet], e: Environment, verbose: Boolean) = {
+    remaining.foreach { v =>
       val minGroup = clusters.minBy(_.distancePercentile(v))
       val index = clusters.indexOf(minGroup)
       if (verbose) {
@@ -82,13 +87,12 @@ object PointClustering {
     EnvironmentSegmentation(clusters, e)
   }
 
-  def initialCluster(points: , size: Int) = {
-    var visibility: Set[Visibility] = determineVisibility(points, e).visibility
+  def initialCluster(visibility: Set[Visibility], size: Int, verbose: Boolean = false): (Set[Visibility], MutableSeq[VisibilitySet]) = {
+    var vis = visibility
     var clusters: MutableSeq[VisibilitySet] = MutableSeq.empty
-    val colors = takeColors(size)
     (0 until size).foreach { i =>
       val (taken: Visibility, left: Set[Visibility]) = PointClustering.takeRandom(visibility)
-      visibility = left
+      vis = left
       clusters = clusters :+ VisibilitySet(Seq(taken), colors(i))
     }
     if (verbose) {
@@ -96,10 +100,23 @@ object PointClustering {
       println(s"cluster initialization points ${out}")
     }
     assert(clusters.size == size)
+    (vis, clusters)
   }
 
-  def repeatCluster(e: EnvironmentSegmentation): EnvironmentSegmentation = {
-    val centers = e.partition.map(_.center)
+
+  def clusterRounds(points: Set[Point], e: Environment, size: Int, rounds: Int): EnvironmentSegmentation = {
+    var visibility: Set[Visibility] = determineVisibility(points, e).visibility
+    var segmentation = cluster(visibility, e, size)
+    var centers = segmentation.partition.map(_.center)
+    var others = segmentation.partition.flatMap(_.visibilities);
+    var round = 1
+    while(round < rounds) {
+      segmentation = cluster(visibility, e, size)
+      centers = segmentation.partition.map(_.center)
+      others = segmentation.partition.flatMap(_.visibilities);
+      round += 1
+    }
+    segmentation
   }
 }
 
