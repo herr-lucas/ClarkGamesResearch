@@ -11,20 +11,25 @@ case class Visibility(p: Point, visible: Set[Point]) {
   }
 }
 
-case class VisibilitySet(var visibilities: Seq[Visibility]) {
+case class VisibilitySet(var visibilities: Seq[Visibility], color: String) {
   //def distance(v: Visibility): Double = {
   //  visibilities.map(vis => v.distance(vis)).max
   //}
 
   def distancePercentile(v: Visibility): Double = {
-    val tenthPercentileIndex = visibilities.size - Math.ceil(visibilities.size / 10.0).toInt
+    val percentile = 0.1
+    val tenthPercentileIndex = visibilities.size - Math.ceil(visibilities.size * percentile).toInt
     val sortedDistances = visibilities.map(vis => v.distance(vis)).sorted
-    println(s"Tenth percentile index: $tenthPercentileIndex, distances: $sortedDistances")
+    //println(s"Num items = ${visibilities.size} percentile index: $tenthPercentileIndex, distances $sortedDistances")
     sortedDistances(tenthPercentileIndex)
   }
 
   def setDistance(v: VisibilitySet): Double = {
     v.visibilities.map(visibility => distancePercentile(visibility)).max //).toOption.getOrElse(0)
+  }
+
+  def center: Visibility = {
+    visibilities.map(v => (v, distancePercentile(v))).minBy(_._2)._1
   }
 }
 
@@ -65,27 +70,36 @@ object PointClustering {
   }
 
   def cluster(points: Set[Point], e: Environment, size: Int, verbose: Boolean = false): EnvironmentSegmentation = {
-    var visibility: Set[Visibility] = determineVisibility(points, e).visibility
-    var clusters: MutableSeq[VisibilitySet] = MutableSeq.empty
-    (0 until size).foreach { i =>
-      val (taken: Visibility, left: Set[Visibility]) = PointClustering.takeRandom(visibility)
-      visibility = left
-      clusters = clusters :+ VisibilitySet(Seq(taken))
-    }
-    if (verbose) {
-      val out = clusters.map(_.visibilities.map(_.p))
-      println(s"cluster initialization points ${out}")
-    }
-    assert(clusters.size == size)
+
     visibility.foreach { v =>
       val minGroup = clusters.minBy(_.distancePercentile(v))
       val index = clusters.indexOf(minGroup)
       if (verbose) {
-        println(s"adding ${v.p} to ${clusters(index).visibilities.map(_.p)}")
+        println(s"adding ${v.p} to ${clusters(index).color}")
       }
-      clusters(index) = VisibilitySet(minGroup.visibilities :+ v)
+      clusters(index) = VisibilitySet(minGroup.visibilities :+ v, minGroup.color)
     }
     EnvironmentSegmentation(clusters, e)
+  }
+
+  def initialCluster(points: , size: Int) = {
+    var visibility: Set[Visibility] = determineVisibility(points, e).visibility
+    var clusters: MutableSeq[VisibilitySet] = MutableSeq.empty
+    val colors = takeColors(size)
+    (0 until size).foreach { i =>
+      val (taken: Visibility, left: Set[Visibility]) = PointClustering.takeRandom(visibility)
+      visibility = left
+      clusters = clusters :+ VisibilitySet(Seq(taken), colors(i))
+    }
+    if (verbose) {
+      val out = clusters.map(c => (c.color, c.visibilities.map(_.p)))
+      println(s"cluster initialization points ${out}")
+    }
+    assert(clusters.size == size)
+  }
+
+  def repeatCluster(e: EnvironmentSegmentation): EnvironmentSegmentation = {
+    val centers = e.partition.map(_.center)
   }
 }
 

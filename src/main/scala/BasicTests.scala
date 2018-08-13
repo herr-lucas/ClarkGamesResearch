@@ -264,8 +264,8 @@ object BasicTests {
     val objects = Seq(LineSegment(Point(-10, 5), Point(15, 5)))
     val env = Environment(objects)
     val visibilities = PointClustering.determineVisibility(points.toSet, env).visibility
-    val visSet1 = VisibilitySet(visibilities.filter(x => x.p == Point(0, 0) || x.p == Point(5, 0)).toSeq)
-    val visSet2 = VisibilitySet(visibilities.filter(x => x.p == Point(0, 10) || x.p == Point(5, 10)).toSeq)
+    val visSet1 = VisibilitySet(visibilities.filter(x => x.p == Point(0, 0) || x.p == Point(5, 0)).toSeq, "green")
+    val visSet2 = VisibilitySet(visibilities.filter(x => x.p == Point(0, 10) || x.p == Point(5, 10)).toSeq, "blue")
     val visx0y0 = visibilities.filter(x => x.p == Point(0, 0)).toSeq(0)
     val visx0y10 = visibilities.filter(x => x.p == Point(0, 10)).toSeq(0)
     val dist1 = visx0y0.distance(visx0y10)
