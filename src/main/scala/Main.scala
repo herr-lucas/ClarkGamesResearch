@@ -26,7 +26,7 @@ object Main {
     // load paths
     loadAndRenderSimplePath
     // simple visibility test
-    val fromPoints = Seq(Point(0,0), Point(10, 10), Point(10, 40), Point(40, 10), Point(76, 76), Point(90, 76))
+    val fromPoints = Seq(Point(0, 0), Point(10, 10), Point(10, 40), Point(40, 10), Point(76, 76), Point(90, 76))
     fromPoints.foreach { p => testVisibilitySimpleBoxEnv(p) }
     // loadAndRender CallofDutyMap
     loadCallofDutyMap
@@ -41,6 +41,6 @@ object Main {
     basicVisibilityTest()
     basicSegmentationTest()
     environmentSegmentationTest(verbose = false)
-    environmentSegmentationCODTest()
+    //environmentSegmentationCODTest()
   }
 }
