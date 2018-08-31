@@ -1,4 +1,4 @@
-import MathHelpers.{relativeError, sameSign, closeEnough}
+import MathHelpers.{error, sameSign, closeEnough}
 import scala.util.Try
 
 case class Point(x: Double, y: Double, override val verbose: Boolean = false, pname: Option[String] = None, override val specialColor: Option[String] = None) extends Geo(pname, verbose ) {
@@ -61,8 +61,8 @@ case class Point(x: Double, y: Double, override val verbose: Boolean = false, pn
     val dx = x - pointAndTwoDVector.p.x
     val dy = y - pointAndTwoDVector.p.y
     if (verbose) {
-      println("Relative intersection distance:")
-      println(relativeError(dy * pointAndTwoDVector.d.x,  dx * pointAndTwoDVector.d.y))
+      println("intersection distance:")
+      println(error(dy * pointAndTwoDVector.d.x,  dx * pointAndTwoDVector.d.y))
       println(s"Dx Dy $dx $dy")
       println(pointAndTwoDVector.d)
     }

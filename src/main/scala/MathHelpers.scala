@@ -5,10 +5,6 @@ object MathHelpers {
     error(v1, v2) < NumericalIntersectionError
   }
 
-  def relativeError(x: Double, y: Double): Double = {
-    if (x + y == 0) 0
-    else Math.abs((x - y) * 2 / (x + y))
-  }
   def error(x: Double, y: Double): Double = {
     Math.abs(x - y)
   }

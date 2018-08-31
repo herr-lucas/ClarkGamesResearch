@@ -6,7 +6,7 @@ object LineSegmentNormalForm {
     val A2 = l2.A
     val B2 = l2.B
     val C2 = l2.C
-    // Code below taken from online
+    // Code below taken online
     val delta = A1 * B2 - A2 * B1
     if (delta == 0) None
     else {

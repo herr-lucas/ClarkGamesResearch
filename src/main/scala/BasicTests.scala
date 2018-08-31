@@ -55,7 +55,7 @@ object BasicTests {
     val env = Environment(Seq(line1, line2, line3, Border(0, 100, 0, 100)))
     println("Simple line blocking test  " + {
       if (line1.isVisible(line2, env)) "FAILS!!!" else "passes"
-    }) // line 3 should block
+    })
   }
 
   def simpleThreeLineSegmentVisibilityTest: Unit = {
@@ -112,19 +112,6 @@ object BasicTests {
     val pointInside2 = Point(3, 3)
     val lineInside = LineSegment(Point(0, 0), Point(4, 4), verbose = v) //vertical line
     val env = Environment(Seq(boxLine1, boxLine2, boxLine3, boxLine4, pointInside1, lineInside, Border(0, 100, 0, 100)))
-    // TODO: below unneccesary until we want to move to non-regions environments, but why would we do that?
-    // println(s"Point inside 1? ${if (env.isInside(pointInside1)) "passes" else "FAILS!!!"}")
-    // println(s"Point inside 2? ${if (env.isInside(pointInside2)) "passes" else "FAILS!!!"}")
-
-  }
-
-  def partitionEnvironment: Unit = {
-    val v = false
-    val pointInside1 = Point(5, 5)
-    val pointInside2 = Point(3, 3)
-    val env = Environment(items = Seq(pointInside1, pointInside2, Border(0, 100, 0, 100)))
-    val partition = env.partitionEnvironment(10, numSamples, Border(0, 100, 0, 100))
-    println("Test Partition: " + partition)
   }
 
   def testSimpleBoxEnv: Unit = {
@@ -160,7 +147,6 @@ object BasicTests {
   def loadAndRenderSimplePath() = {
     val lines = EnvironmentExtractor.loadSimplePathEnv()
     val env = Environment(lines)
-    println(s"Simple path direction $env")
     EnvironmentRenderer.render(env, "environments/tests/simple_cod_path_test.svg", pointsAcross = None, frameWidth = 100, frameHeight = 100, verbose = false)
   }
 
@@ -182,7 +168,6 @@ object BasicTests {
   def temporaryCODDebuggingTests() = {
     val pfrom = Point(100, 100, verbose = true)
     val cands = Seq(Point(100, 390, verbose = true), Point(100, 400, verbose = true))
-    // (0 to 100).map(i => Point(100, i * 10))
     val lines = EnvironmentExtractor.loadCallOfDutyMap()
     cands.foreach {
       cand: Point =>
@@ -190,12 +175,12 @@ object BasicTests {
           s"""$cand ${
             pfrom.isVisible(cand, Environment(Seq(LineSegment(Point(147.46686000000025, 258.6458500000001), Point(30.537730000000252, 258.6458500000001), verbose = true))))
           }""")
-    } // Environment(lines)
+    }
   }
 
   def loadCallofDutyMap: Unit = {
     val map = EnvironmentExtractor.loadCallOfDutyMap()
-    println("Loaded COD paths " + map)
+    println("Loaded COD paths")
   }
 
   def renderCallOfDutyMap: Unit = {
@@ -213,7 +198,6 @@ object BasicTests {
   }
 
   def testCallOfDutyEnvironment(pFrom: Point) = {
-    // TODO: Make this use generatePoints
     val (fromX: Double, fromY: Double) = (pFrom.x, pFrom.y)
     val lines = EnvironmentExtractor.loadCallOfDutyMap()
     val pointOfInterest = Point(fromX, fromY, specialColor = Some("yellow"), verbose = false)
@@ -278,23 +262,42 @@ object BasicTests {
     }
   }
 
+
+  // Tests below generate segmentation output in environments/tests
+  // Tests are sometimes run with different seeds (to generate segmentation froms different initializations)
   def environmentSegmentationTest(verbose: Boolean = false) = {
-    val seeds = Seq(1, 2, 3)
     val clus_size = 3
     val num_rounds = 3
     val lines = EnvironmentExtractor.loadSimpleBoxEnv()
     val env = Environment(lines)
-    seeds.foreach { s =>
-      Random.setSeed(s)
-      val segmentations = PointClustering.clusterRoundsSeq(generatePoints(100, 100, 10).toSet, env, rounds = num_rounds, size = clus_size, verbose = verbose)
-      segmentations.zipWithIndex.foreach { case (segmentation, roundNumber) =>
-        val colors = PointClustering.takeColors(clus_size)
-        val coloredPoints = segmentation.partition.zip(colors).map {
-          case (vis, color: String) => vis.visibilities.map(v => Point(v.p.x, v.p.y, specialColor = Some(color)))
-        }.flatten
-        EnvironmentRenderer.render(Environment(lines ++ coloredPoints), fout = s"environments/tests/boxEnvironmentSegmented-r$roundNumber-s-$s.svg", pointsAcross = Some(10), frameWidth = 100, frameHeight = 100)
-      }
+    val segmentations = PointClustering.clusterRoundsSeq(generatePoints(100, 100, 10).toSet, env, rounds = num_rounds, size = clus_size, verbose = verbose)
+    segmentations.zipWithIndex.foreach { case (segmentation, roundNumber) =>
+      val colors = PointClustering.takeColors(clus_size)
+      val coloredPoints = segmentation.partition.zip(colors).map {
+        case (vis, color: String) => vis.visibilities.map(v => Point(v.p.x, v.p.y, specialColor = Some(color)))
+      }.flatten
+      EnvironmentRenderer.render(Environment(lines ++ coloredPoints), fout = s"environments/tests/boxEnvironmentSegmented-r$roundNumber-s.svg", pointsAcross = Some(10), frameWidth = 100, frameHeight = 100)
     }
+  }
+
+  def environmentSegmentationTestBestSeed(verbose: Boolean = false) = {
+    val seeds = Seq(1, 2, 3, 4, 5)
+    val clus_size = 3
+    val num_rounds = 3
+    val lines = EnvironmentExtractor.loadSimpleBoxEnv()
+    val env = Environment(lines)
+    val segmentations = seeds.map { s =>
+      Random.setSeed(s)
+      val segmentation = PointClustering.clusterRounds(generatePoints(100, 100, 10).toSet, env, rounds = num_rounds, size = clus_size, verbose = verbose)
+      val colors = PointClustering.takeColors(clus_size)
+      val coloredPoints = segmentation.partition.zip(colors).map {
+        case (vis, color: String) => vis.visibilities.map(v => Point(v.p.x, v.p.y, specialColor = Some(color)))
+      }.flatten
+      (segmentation, coloredPoints)
+    }
+    if (verbose) println(s"Segmentation scores: ${segmentations.map(_._1.score)}")
+    val bestSegmentation = segmentations.map(s => (s, s._1.score)).minBy(_._2)._1
+    EnvironmentRenderer.render(Environment(lines ++ bestSegmentation._2), fout = s"environments/tests/boxEnvironmentSegmented_best_seed.svg", pointsAcross = Some(10), frameWidth = 100, frameHeight = 100)
   }
 
   def environmentSegmentationCODTest(verbose: Boolean = false) = {

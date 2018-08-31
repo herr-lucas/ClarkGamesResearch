@@ -20,7 +20,7 @@ object Main {
     // Simple box env
     testSimpleBoxEnv
     // Env partition
-    partitionEnvironment
+    // partitionEnvironment
     // rendering
     renderEnvironment
     // load paths
@@ -34,13 +34,13 @@ object Main {
     // test points call of Duty map
     val fromPointsCOD = Seq(Point(100, 100), Point(700, 100), Point(100, 700), Point(500, 500))
     fromPointsCOD.foreach { p => testCallOfDutyEnvironment(p) }
-    // debugging weird behavior
-    // temporaryCODDebuggingTests
     // environment segmentation
     distanceTest()
     basicVisibilityTest()
     basicSegmentationTest()
-    environmentSegmentationTest(verbose = false)
-    //environmentSegmentationCODTest()
+    environmentSegmentationTest()
+    environmentSegmentationTestBestSeed()
+    // sementation on call of duty environment below. takes a while
+    // environmentSegmentationCODTest()
   }
 }

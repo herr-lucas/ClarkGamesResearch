@@ -38,7 +38,7 @@ case class LineSegment( p1: Point, p2: Point, val numSamples: Int = 5, override 
     val d2 = new PointAndTwoDVector(p, p2).d
     val distClose = p.dist(center) <= 0.5 * p1.dist(p2)
     val sameVec = closeEnough(d2.x  * d1.y, d2.y * d1.x)
-    if (verbose) println(s"d1 $d1 d2 $d2 sameVec  ${relativeError(d2.x  * d1.y, d2.y * d1.x)}")
+    if (verbose) println(s"d1 $d1 d2 $d2 sameVec  ${error(d2.x  * d1.y, d2.y * d1.x)}")
     val signX = sameSign(d1.x, d2.x)
     val signY = sameSign(d1.y, d2.y)
     if (verbose) println(s"distClose $distClose sameVec $sameVec signX $signX signY $signY")
@@ -56,7 +56,6 @@ case class LineSegment( p1: Point, p2: Point, val numSamples: Int = 5, override 
   def pointSamples(numSamples: Int): Seq[Point] = {
     assert(numSamples >= 2)
     (0 to numSamples - 1).map(x => stepSample(x * 1.0 / (numSamples - 1)))
-    // TODO: Could also consider adding some random samples with (1 to 10).map(_ => randomPoint())
   }
 
   def stepSample(percentage: Double): Point = {

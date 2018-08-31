@@ -7,9 +7,6 @@ case class Visibility(p: Point, visible: Set[Point]) {
     val uniques = (other.visible.diff(this.visible) ++ this.visible.diff(other.visible))
     val totalVisible = other.visible.union(this.visible)
     val dist = uniques.size * 1.0 / totalVisible.size
-    if ((p.x == 0.0 && p.y == 40.0) || (other.p.x == 0.0 && other.p.y == 40.0)) {
-      //println(s"(UNIQUES, TOTAL, OTHER, THIS) (${uniques.size}, ${totalVisible.size}) ${other.visible.size} ${this.visible.size} ${this.p} ${other.p}")
-    }
     assert (dist <= 1.0)
     dist
   }
@@ -22,32 +19,18 @@ case class VisibilitySet(var visibilities: Seq[Visibility], color: String) {
     visibilities.map(vis => v.distance(vis)).sum / visibilities.size
   }
 
-  // These produce some weird behavior on cerain points
-  /*def distanceWorst(v: Visibility): Double = {
-    visibilities.map(vis => v.distance(vis)).max
-  }
-
-
   def distancePercentile(v: Visibility): Double = {
     val percentile = 0.1
     val tenthPercentileIndex = visibilities.size - Math.ceil(visibilities.size * percentile).toInt
     val sortedDistances = visibilities.map(vis => v.distance(vis)).sorted
-    //println(s"Num items = ${visibilities.size} percentile index: $tenthPercentileIndex, distances $sortedDistances")
     sortedDistances(tenthPercentileIndex)
   }
-  */
 
   def setDistance(v: VisibilitySet): Double = setDistanceAVG(v)
-
-  /*
-  def setDistanceWorst(v: VisibilitySet): Double = {
-    v.visibilities.map(visibility => distance(visibility)).max
-  }*/
 
   def setDistanceAVG(v: VisibilitySet): Double = {
     v.visibilities.map(visibility => distance(visibility)).sum / visibilities.size
   }
-
 
   def center(verbose: Boolean = false): Visibility = {
     if (verbose) println(s"Distances for determining center for $color ${visibilities.map(v => (v.p, visibilities.map(_.distance(v)).sum)).sortBy(_._2)}")
@@ -62,9 +45,14 @@ case class EnvironmentSegmentation(partition: Seq[VisibilitySet], environment: E
     res(0)
   }
 
-  //def getNeighbors(visibilitySet: VisibilitySet): Seq[VisibilitySet]
+  // Measured by standard deviation of size of clustering
+  def score: Double = {
+    val sizes = partition.map(_.visibilities.size)
+    val sq = partition.map(p => Math.pow(p.visibilities.size, 2)).sum * 1.0 / sizes.size
+    val mean = sizes.sum * 1.0 / sizes.size
+    sq - Math.pow(mean, 2)
+  }
 
-  //def getBestNeighboringSet(p: Point) = {} // need to check for neighbor and visibility
 }
 
 case class PointClustering(visibility: Set[Visibility], environment: Environment)
